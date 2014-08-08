@@ -29,31 +29,31 @@ class Default < Thor
   ## Rake Task bindings
 
   # @fn         def build # {{{
-  # @brief      Build scylla gem
+  # @brief      Build geohash36 gem
   #
-  desc "build", "Build scylla-#{Scylla::VERSION}.gem into the pkg directory"
+  desc "build", "Build geohash36-#{Geohash36::VERSION}.gem into the pkg directory"
   def build
     Rake::Task["build"].execute
   end # }}}
 
   # @fn         def clean # {{{
-  # @brief      Clean scylla gem generated ressources
+  # @brief      Clean geohash36 gem generated ressources
   #
-  desc "clean", "Clean scylla-#{Scylla::VERSION}.gem generated files from current directories"
+  desc "clean", "Clean geohash36-#{Geohash36::VERSION}.gem generated files from current directories"
   def clean
     Rake::Task["clean"].execute
   end # }}}
 
   # @fn         def install {{{
-  # @brief      Build and install scylla gem into system gems
-  desc "install", "Build and install scylla-#{Scylla::VERSION}.gem into system gems"
+  # @brief      Build and install geohash36 gem into system gems
+  desc "install", "Build and install geohash36-#{Geohash36::VERSION}.gem into system gems"
   def install
     Rake::Task["install"].execute
   end # }}}
 
   # @fn         def release {{{
   # @brief      Build, Tag and push built gem into internal repository
-  desc "release", "Create tag v#{Scylla::VERSION} and build and push scylla-#{Scylla::VERSION}.gem to internal gems repository"
+  desc "release", "Create tag v#{Geohash36::VERSION} and build and push geohash36-#{Geohash36::VERSION}.gem to internal gems repository"
   def release
     not ImplementedError # we can push to rubygems since its closed!
     # Rake::Task["release"].execute

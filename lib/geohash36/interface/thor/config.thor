@@ -16,7 +16,7 @@ class Config < Thor
   include ::Mixin::DefaultConfig
 
 
-  desc "generate", "Generate scylla config file" # {{{
+  desc "generate", "Generate geohash36 config file" # {{{
 
   option :url,      desc: "Jason url"
   option :ip,       desc: "Jason ip"
@@ -28,12 +28,12 @@ class Config < Thor
   def generate
     template_path = Thor::Sandbox::Config.source_root(File.expand_path( File.dirname( __FILE__ ) + '/../../template/config.tt'))
     config        = defaults['jason'].merge(options)
-    template(template_path, File.expand_path( '~/.scylla/config.yml' ), config)
+    template(template_path, File.expand_path( '~/.geohash36/config.yml' ), config)
   end # }}}
 
-  desc "clean", "Removes scylla config file" # {{{
+  desc "clean", "Removes geohash36 config file" # {{{
   def clean
-    config_path = File.expand_path( '~/.scylla/config.yml' )
+    config_path = File.expand_path( '~/.geohash36/config.yml' )
     File.delete(config_path) if( File.exist?(config_path) )
   end # }}}
 

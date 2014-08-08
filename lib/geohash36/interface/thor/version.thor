@@ -13,7 +13,7 @@ class Version < Thor
   # @brief    Show version string of app
   desc 'show', 'Show version of this app'
   def show
-    version = Scylla::VERSION
+    version = Geohash36::VERSION
 
     puts version
   end # }}}
