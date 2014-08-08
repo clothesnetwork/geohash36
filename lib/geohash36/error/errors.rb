@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
 
-# @module         module Scylla
-# @brief          Scylla module namespace
-module Scylla
+# @module         module Geohash36
+# @brief          Geohash36 module namespace
+module Geohash36
 
 
-  class ScyllaError < StandardError
+  class Geohash36Error < StandardError
 
     class << self
       # @param [Integer] code
@@ -17,28 +17,28 @@ module Scylla
     end
 
     alias_method :message, :to_s
-  end # of class ScyllaError
+  end # of class Geohash36Error
 
-  class DeprecatedError < ScyllaError; status_code(10); end
-  class InternalError < ScyllaError; status_code(99); end
+  class DeprecatedError < Geohash36Error; status_code(10); end
+  class InternalError < Geohash36Error; status_code(99); end
   class ArgumentError < InternalError; end
   class AbstractFunction < InternalError; end
 
-  class ScyllafileNotFound < ScyllaError
+  class Geohash36fileNotFound < Geohash36Error
     status_code(100)
 
     # @param [#to_s] filepath
-    #   the path where a Scyllafile was not found
+    #   the path where a Geohash36file was not found
     def initialize(filepath)
       @filepath = File.dirname(File.expand_path(filepath)) rescue filepath
     end
 
     def to_s
-      "No Scyllafile or Scyllafile.lock found at '#{@filepath}'!"
+      "No Geohash36file or Geohash36file.lock found at '#{@filepath}'!"
     end
   end
 
-  class CookbookNotFound < ScyllaError
+  class CookbookNotFound < Geohash36Error
     status_code(103)
 
     def initialize(name, version, location)
@@ -56,7 +56,7 @@ module Scylla
     end
   end
 
-  class DuplicateDependencyDefined < ScyllaError
+  class DuplicateDependencyDefined < Geohash36Error
     status_code(105)
 
     def initialize(name)
@@ -64,14 +64,14 @@ module Scylla
     end
 
     def to_s
-      out  = "Your Scyllafile contains multiple entries named "
+      out  = "Your Geohash36file contains multiple entries named "
       out << "'#{@name}'. Please remove duplicate dependencies, or put them in "
       out << "different groups."
       out
     end
   end
 
-  class NoSolutionError < ScyllaError
+  class NoSolutionError < Geohash36Error
     status_code(106)
 
     attr_reader :demands
@@ -86,7 +86,7 @@ module Scylla
     end
   end
 
-  class ScyllafileReadError < ScyllaError
+  class Geohash36fileReadError < Geohash36Error
     status_code(113)
 
     # @param [#status_code] original_error
@@ -107,7 +107,7 @@ module Scylla
 
     def to_s
       [
-        "An error occurred while reading the Scyllafile:",
+        "An error occurred while reading the Geohash36file:",
         "",
         "  #{@error_message}",
       ].join("\n")
@@ -115,7 +115,7 @@ module Scylla
   end
 
 
-  class InvalidConfiguration < ScyllaError
+  class InvalidConfiguration < Geohash36Error
     status_code(115)
 
     def initialize(errors)
@@ -134,7 +134,7 @@ module Scylla
     end
   end
 
-  class InsufficientPrivledges < ScyllaError
+  class InsufficientPrivledges < Geohash36Error
     status_code(119)
 
     def initialize(path)
@@ -148,7 +148,7 @@ module Scylla
     end
   end
 
-  class DependencyNotFound < ScyllaError
+  class DependencyNotFound < Geohash36Error
     status_code(120)
 
     # @param [String, Array<String>] names
@@ -160,7 +160,7 @@ module Scylla
     def to_s
       if @names.size == 1
         "Dependency '#{@names.first}' was not found. Please make sure it is " \
-        "in your Scyllafile, and then run `berks install` to download and " \
+        "in your Geohash36file, and then run `berks install` to download and " \
         "install the missing dependencies."
       else
         out = "The following dependencies were not found:\n"
@@ -168,7 +168,7 @@ module Scylla
           out << "  * #{name}\n"
         end
         out << "\n"
-        out << "Please make sure they are in your Scyllafile, and then run "
+        out << "Please make sure they are in your Geohash36file, and then run "
         out << "`berks install` to download and install the missing "
         out << "dependencies."
         out
@@ -177,7 +177,7 @@ module Scylla
   end
 
 
-  class LockfileParserError < ScyllaError
+  class LockfileParserError < Geohash36Error
     status_code(136)
 
     # @param [String] lockfile
@@ -189,12 +189,12 @@ module Scylla
     end
 
     def to_s
-      "Error reading the Scylla lockfile:\n\n" \
+      "Error reading the Geohash36 lockfile:\n\n" \
       "  #{@original.class}: #{@original.message}"
     end
   end
 
-  class LockfileNotFound < ScyllaError
+  class LockfileNotFound < Geohash36Error
     status_code(140)
 
     def to_s
@@ -203,7 +203,7 @@ module Scylla
   end
 
 
-  class LockfileOutOfSync < ScyllaError
+  class LockfileOutOfSync < Geohash36Error
     status_code(144)
 
     def to_s
@@ -212,14 +212,14 @@ module Scylla
   end
 
 
-  class NoAPISourcesDefined < ScyllaError
+  class NoAPISourcesDefined < Geohash36Error
     status_code(146)
 
     def to_s
-      "Your Scyllafile does not define any API sources! You must define " \
+      "Your Geohash36file does not define any API sources! You must define " \
       "at least one source in order to download cookbooks. To add the " \
-      "default Scylla API server, add the following code to the top of " \
-      "your Scyllafile:"
+      "default Geohash36 API server, add the following code to the top of " \
+      "your Geohash36file:"
     end
   end
 

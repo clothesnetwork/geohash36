@@ -7,15 +7,15 @@ Feature: Command line control
 
   # Scenario 1
   Scenario: Show CLI help screen when started without task
-    When I run `scylla`
+    When I run `geohash36`
     Then the output should match /Commands/
 
   Scenario: Show help info when `help` argument passed
-    When I run `scylla help`
+    When I run `geohash36 help`
     Then the output should match /Commands/
 
   Scenario: Show error and usage example if crawl called without url
-    When I run `scylla crawl`
+    When I run `geohash36 crawl`
     Then the output should match:
       """
       ERROR:.*was called with no arguments
@@ -23,6 +23,6 @@ Feature: Command line control
       """
 
   Scenario: Run crawler when url specified
-    When I run `scylla crawl http://api.github.com`
+    When I run `geohash36 crawl http://api.github.com`
     Then the output should contain "Started crawler on"
     And the output should contain "http://api.github.com"

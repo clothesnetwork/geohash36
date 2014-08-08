@@ -16,7 +16,7 @@ group :production do # {{{
   ########
   #
   # Do not add production gems here, but instead use
-  # scylla.gemspec file !
+  # geohash36.gemspec file !
   #
   ####
 
@@ -121,7 +121,7 @@ group :docs do # {{{
 end # }}}
 
 
-# Declare scylla.gemspec
+# Declare geohash36.gemspec
 gemspec
 
 
