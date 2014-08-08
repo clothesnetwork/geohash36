@@ -1,0 +1,8 @@
+---
+
+# These values are consumed by Thor and Rake
+gem_name:         geohash36
+author:           Bjoern Rennhak
+organization:     Clothes Network
+
+

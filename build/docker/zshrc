@@ -1,0 +1,79 @@
+# File: $HOME/.zshrc
+
+###
+# 
+# Minimal .zshrc file
+#
+# Author: Bjoern Rennhak
+#
+######
+
+
+zstyle ':completion:*' completer _expand _complete _approximate
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' max-errors 10
+zstyle ':completion:*' prompt '$%e$:'
+zstyle :compinstall filename "$HOME/.zshrc"
+autoload -Uz compinit
+compinit
+
+corePrompt="[%B%T%b][%B%n@%m%b:%/]%% "
+beginColor="$(print '%{\e[1;32m%}')"
+PS1="$(print '[%{\e[1;33m%}%B%T%b%{\e[0m%}][\e[1;32mEurope\e[0m][%{\e[1;33m%}%B%n@%m%b%{\e[0m%}:%/]%% ')"
+# PS1="\[\033[0;32m\][\u@\h:\w]$\[\033[0m\] ";    # Standard is "PS1='\u@\h:\w\$ '"
+
+alias ls="/bin/ls --color=auto"
+alias ll="/bin/ls --color=auto -l"
+alias la="/bin/ls --color=auto -la"
+alias mv='nocorrect mv'       # no spelling correction on mv
+alias cp='nocorrect cp'       # no spelling correction on cp
+alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
+alias d='dirs -v'
+alias h=history
+alias su='su -'
+alias cd..='cd ..'
+alias lsd='ls -ld *(-/DN)'
+alias ls='ls --color=auto $*';
+alias la='ls -l --color=auto $*';
+alias ll='ls -lA --color=auto $*';
+alias md='mkdir -p $*';
+alias rd='rmdir $*';
+eval `dircolors -b`;
+alias igrep='grep -i $*';
+alias cd..='cd ..';  # Another MSDOS survival
+
+PATH=/bin:~/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin:$PATH; export PATH;
+
+export HISTSIZE=10000
+export SAVEHIST=5000
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+export HISTFILE=~/.zhistory
+setopt EXTENDED_HISTORY
+setopt EXTENDED_GLOB
+
+if [ -e $HOME/.ssh/known_hosts ]
+then
+    hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*})
+    zstyle ':completion:*:hosts' hosts $hosts
+fi
+
+chpwd()
+{
+    local str
+    str="%n@%m: %/"
+    print -Pn "\033]2;$str\a"
+}
+
+chpwd
+
+function ssh() {
+    echo -n -e "\033k$1\033\\"
+    /usr/bin/ssh "$@"
+    echo -n -e "\033kzsh\033\\"
+}
+
+umask 077
+
+source /usr/local/rvm/scripts/rvm
+

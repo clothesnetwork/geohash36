@@ -1,0 +1,113 @@
+#!/usr/bin/env ruby
+
+
+# System libs
+require 'awesome_print'
+require 'fileutils'
+require 'simplecov'
+require 'simplecov-rcov-text'
+
+
+MetricFu::Configuration.run do |config|
+
+  # Get directories we want to cover
+  files   = Dir.glob( "lib/**/*.rb" )
+  paths   = files.collect! { |dir| File.dirname( dir ) }.uniq
+
+  puts "(II) Running on the following folders: "
+  ap paths
+  puts ""
+
+  ### Basic config
+  config.verbose   = false
+  # config.configure_formatter(:yaml, "customreport.yml")
+
+
+  ### Turn off some tools per default
+
+  config.configure_metrics.each do |metric| # {{{
+    name           = metric.name
+
+    metric.enabled = false if( name == :rails_best_practices ) # metric.is_a? MetricFu::MetricRailsBestPractices
+
+    # dies with /metric_fu-4.5.2/lib/metric_fu/metrics/stats/stats.rb:45:in `set_global_stats': undefined method `[]' for nil:NilClass (NoMethodError)]
+    metric.enabled = false if( name == :stats )
+
+    # metric_fu-Saikuro currently fails? rescue in run': undefined method `usage' for RDoc:Module (NoMethodError)`
+    metric.enabled = false if( name == :saikuro )
+  end # }}}
+
+
+  ### Analysis tools
+
+  config.configure_metric( :flog ) do |flog| # {{{
+    flog.enabled      = true
+    flog.dirs_to_flog( paths )
+    puts "(--) Flog -> Passing following opts (#{flog.configured_run_options.to_s})"
+  end # }}}
+
+  config.configure_metric( :flay ) do |flay| # {{{
+    flay.enabled      = true
+    flay.dirs_to_flay( paths )
+    puts "(--) Flay -> Passing following opts (#{flay.configured_run_options.to_s})"
+  end # }}}
+
+  config.configure_metric( :cane ) do |cane| # {{{
+    cane.enabled      = true
+    cane.dirs_to_cane( paths )
+    cane.line_length  = 110
+
+    cane.configured_run_options[ :dirs_to_cane ] = paths
+
+    puts "(--) Cane -> Passing following opts (#{cane.configured_run_options.to_s})"
+  end # }}}
+
+  config.configure_metric( :reek ) do |reek| # {{{
+    reek.enabled      = true
+    reek.dirs_to_reek( paths )
+
+    puts "(--) Reek -> Passing following opts (#{reek.configured_run_options.to_s})"
+  end # }}}
+
+  config.configure_metric( :roodi ) do |roodi| # {{{
+    roodi.enabled      = true
+    roodi.dirs_to_roodi( paths )
+
+    puts "(--) Roodi -> Passing following opts (#{roodi.configured_run_options.to_s})"
+  end # }}}
+
+  config.configure_metric( :churn ) do |churn| # {{{
+    churn.enable
+    churn.configured_run_options[ :dirs_to_churn ] = paths
+
+    puts "(--) Churn -> Passing following opts (#{churn.configured_run_options.to_s})"
+  end # }}}
+
+  config.configure_metric( :rcov ) do |rcov| # {{{
+
+    file              = "tmp/coverage.log"
+    coverage_file     = File.expand_path( file, Dir.pwd )
+    FileUtils.touch( coverage_file ) unless( File.exists?( coverage_file ) )
+
+    rcov.enabled      = true
+    rcov.external     = coverage_file
+    rcov.activate
+
+    rcov.configured_run_options[ :dirs_to_rcov ] = paths
+
+    puts "(--) RCov -> Passing following opts (#{rcov.configured_run_options.to_s})"
+  end # }}}
+
+  config.configure_metric( :saikuro ) do |saikuro| # {{{
+    saikuro.enabled   = true
+
+    saikuro.configured_run_options[ :dirs_to_saikuro ] = paths
+
+    puts "(--) Saikuro -> Passing following opts (#{saikuro.configured_run_options.to_s})"
+  end # }}}
+
+
+end # of MetricFu::Configuration.run do |config|
+
+
+# vim:ts=2:tw=100:wm=100:syntax=ruby

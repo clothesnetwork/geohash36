@@ -1,0 +1,40 @@
+geohash36(1) -- Image Data Hub
+=============================
+
+## SYNOPSIS
+
+`geohash36` COMMAND [--no-color] [--verbose] [ARGS]
+
+## DESCRIPTION
+
+
+## OPTIONS
+
+* `--no-color`:
+  Prints all output without color
+
+* `--verbose`:
+  Prints out additional logging information
+
+## GEOHASH36 COMMANDS
+
+We divide `geohash36` subcommands into primary commands and utilities.
+
+## PRIMARY COMMANDS
+
+* [geohash36 config(1)][geohash36-config]:
+  Specify and read configuration options for geohash36
+
+* `geohash36 help(1)`:
+  Displays detailed help for each subcommand
+
+## UTILITIES
+
+* `geohash36 check(1)`:
+  Determine whether the requirements for your application are installed
+  and available to bundler
+
+* `geohash36 console(1)`:
+  Start an IRB session in the context of the current hub
+
+

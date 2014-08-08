@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+# Make sure load path contains local + global
+$LOAD_PATH << '.'
+$LOAD_PATH << 'lib'
+
+
+# System includes
+require 'bundler'
+
+# Make Thor scripts debug-able, e.g. ruby -r debug -- Thorfile
+require 'thor' unless defined? Thor::Runner
+require 'thor/runner'
+
+# Development Mode?
+if ENV["GEOHASH36_ENV"] == "development"
+  require "simplecov"
+
+  # Ensure merging of subprocesses by giving them a special name
+  # SimpleCov.command_name ARGV.join(" ")
+  SimpleCov.command_name "Geohash36 #{Process.pid}"
+
+  # Set the correct root folder for SimpleCov
+  SimpleCov.root File.join(File.expand_path(File.dirname(__FILE__)), "..")
+
+  # Start coverage
+  SimpleCov.start
+end # of if ENV
+
+
+# Geohash36::Runner.new( ARGV.dup ).execute!
+$thor_runner            = true
+Thor::Runner.start
+
+
+# vim:ts=2:tw=100:wm=100:syntax=ruby

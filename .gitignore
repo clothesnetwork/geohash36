@@ -1,0 +1,9 @@
+base/groovy-core
+base/neo4j
+.idea
+out
+target
+.*~
+graph-recommendation.iml
+thrift/
+lib/scylla/man
