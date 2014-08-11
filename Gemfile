@@ -1,35 +1,16 @@
-# File: Gemfile
-
-
-# Sources to draw gems from
 source "https://rubygems.org"
-# source 'http://gems.rubyforge.org'
-# source 'http://gemcutter.org'
 
-
-# Depend on a certain ruby version
 ruby '2.1.2'
-
-
-group :production do # {{{
-
-  ########
-  #
-  # Do not add production gems here, but instead use
-  # geohash36.gemspec file !
-  #
-  ####
-
-end # }}}
 
 group :default do # {{{
 
   # System
   gem 'bundler'
   gem 'rake'
-
   gem 'moneta'
   gem 'redis'
+
+  gem 'ruby-try', '~> 1.1.1'
 
 end # }}}
 
@@ -68,10 +49,11 @@ group :test do # {{{
 
   # Testing / Development
   gem 'aruba'
-  gem 'rspec', '~> 2.0'
+  gem 'rspec', '~> 3.0.0'
+  gem 'rspec-its'
+  gem 'rspec-mocks'
   gem 'guard-rspec', require: false
-  gem 'nyan-cat-formatter'
-  gem 'simplecov', '~> 0.8.1'
+  gem 'simplecov', '~> 0.9.0'
   gem 'simplecov-rcov'
   gem 'simplecov-rcov-text'
   gem 'metric_fu', '>= 4.5.x'

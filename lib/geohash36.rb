@@ -37,13 +37,6 @@ module Geohash36
 
 end # of module Geohash36
 
-
-
-## Library
-require_relative 'geohash36/library/dbc'
-require_relative 'geohash36/library/helpers'
-require_relative 'geohash36/library/logger'
-require_relative 'geohash36/library/magic'
-
+Dir[File.dirname(__FILE__) + '/geohash36/library/*.rb'].each {|file| require file }
 
 # vim:ts=2:tw=100:wm=100:syntax=ruby
