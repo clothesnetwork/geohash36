@@ -20,7 +20,6 @@ describe Geohash36::Interval do
     context "when not include right border" do
       subject { Geohash36::Interval.new([0, 6], include_right: false) }
 
-      it { subject.opts[:include_right].should eq(false) }
       it { is_expected.to     include?(0) }
       it { is_expected.to     include?(2) }
       it { is_expected.to_not include?(6) }
