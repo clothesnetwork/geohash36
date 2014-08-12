@@ -18,6 +18,7 @@ class Geohash36
     ['R', 't', 'T', 'V', 'W', 'X']
   ]
   GEOMATRIX_MAX_INDEX = 5
+  GEOCODE_LENGTH = 10
 
   attr_reader :coords
   attr_reader :hash
@@ -50,14 +51,11 @@ class Geohash36
   end
 
   def geohash_symbol(lon_interval, lat_interval, coords)
-    lat = coords[:latitude]
-    lon = coords[:longitude]
-
     lon_intervals = Geohash36::Interval.convert_array(lon_interval.split, include_right: false)
     lat_intervals = Geohash36::Interval.convert_array(lat_interval.split, include_left: false)
 
-    lon_index = lon_intervals.find_index  {|interval| interval.include? lon }
-    lat_index = lat_intervals.find_index  {|interval| interval.include? lat }
+    lon_index = lon_intervals.index  {|interval| interval.include? coords[:longitude] }
+    lat_index = lat_intervals.index  {|interval| interval.include? coords[:latitude] }
 
     { symbol: GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-lat_index][lon_index],
       lon_interval: lon_intervals[lon_index],
@@ -65,11 +63,11 @@ class Geohash36
   end
 
   def to_geohash(coords)
-    lon_interval = Geohash36::Interval.new [-180, 180]
-    lat_interval = Geohash36::Interval.new [-90, 90]
+    lon_interval = basic_lon_interval
+    lat_interval = basic_lat_interval
     geohash = ""
 
-    (0..9).each do
+    (0...GEOCODE_LENGTH).each do
       result = geohash_symbol(lon_interval, lat_interval, coords)
       lon_interval = result[:lon_interval]
       lat_interval  = result[:lat_interval]
@@ -79,8 +77,8 @@ class Geohash36
   end
 
   def to_coords(geohash)
-    lon_interval = Geohash36::Interval.new [-180, 180]
-    lat_interval = Geohash36::Interval.new [-90, 90]
+    lon_interval = basic_lon_interval
+    lat_interval = basic_lat_interval
 
     unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
       raise ArgumentError, "It is not Geohash-36."
@@ -92,18 +90,30 @@ class Geohash36
 
       latitude_index = 0
       longitude_index = 0
+
       GEOCODE_MATRIX.each_with_index do |row, index|
-        if row.any? {|symbol| symbol == c}
+        if row.include? c
           latitude_index = GEOMATRIX_MAX_INDEX-index
-          longitude_index = row.find_index {|symbol| symbol == c}
+          longitude_index = row.index(c)
+          break
         end
       end
+
       lon_interval = lon_intervals[longitude_index]
       lat_interval = lat_intervals[latitude_index]
     end
 
     { latitude: lat_interval.middle.round(@accuracy) , longitude: lon_interval.middle.round(@accuracy) }
   end
+
+  private
+    def basic_lon_interval
+      Geohash36::Interval.new [-180, 180]
+    end
+
+    def basic_lat_interval
+      Geohash36::Interval.new [-90, 90]
+    end
 
 end # of module Geohash36
 
