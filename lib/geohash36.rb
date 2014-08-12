@@ -19,19 +19,21 @@ class Geohash36
   ]
   GEOMATRIX_MAX_INDEX = 5
   GEOCODE_LENGTH = 10
+  DEFAULT_ACCURACY = 6
 
   attr_reader :coords
   attr_reader :hash
   attr_accessor :accuracy
 
   def initialize(obj = { latitude: 0, longitude: 0 })
-    @accuracy = 6
+    @accuracy = DEFAULT_ACCURACY
     if obj.kind_of? Hash
       @hash = to_geohash(obj)
       @coords = obj
     elsif obj.kind_of? String
+      validate_geohash(obj)
       @hash = obj
-      @coords = to_coords(obj)
+      @coords = to_coords(obj, @accuracy)
     else
       raise ArgumentError, "Argument type should be hash or string"
     end
@@ -40,9 +42,8 @@ class Geohash36
   def hash=(geohash)
     raise ArgumenError unless geohash.kind_of? String
     @hash = geohash
-    @coords = to_coords(geohash)
+    @coords = to_coords(geohash, @accuracy)
   end
-
 
   def coords=(coords)
     raise ArgumenError unless coords.kind_of? Hash
@@ -76,34 +77,33 @@ class Geohash36
     geohash
   end
 
-  def to_coords(geohash)
+  def to_coords(geohash, accuracy = DEFAULT_ACCURACY)
+    validate_geohash(geohash)
+
     lon_interval = basic_lon_interval
     lat_interval = basic_lat_interval
-
-    unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
-      raise ArgumentError, "It is not Geohash-36."
-    end
 
     geohash.each_char do |c|
       lon_intervals = Geohash36::Interval.convert_array(lon_interval.split)
       lat_intervals = Geohash36::Interval.convert_array(lat_interval.split)
 
-      latitude_index = 0
-      longitude_index = 0
+      lat_index = 0
+      lon_index = 0
 
       GEOCODE_MATRIX.each_with_index do |row, index|
         if row.include? c
-          latitude_index = GEOMATRIX_MAX_INDEX-index
-          longitude_index = row.index(c)
+          lat_index = GEOMATRIX_MAX_INDEX-index
+          lon_index = row.index(c)
           break
         end
       end
 
-      lon_interval = lon_intervals[longitude_index]
-      lat_interval = lat_intervals[latitude_index]
+      lon_interval = lon_intervals[lon_index]
+      lat_interval = lat_intervals[lat_index]
     end
 
-    { latitude: lat_interval.middle.round(@accuracy) , longitude: lon_interval.middle.round(@accuracy) }
+    { latitude:  lat_interval.middle.round(accuracy) ,
+      longitude: lon_interval.middle.round(accuracy) }
   end
 
   private
@@ -113,6 +113,12 @@ class Geohash36
 
     def basic_lat_interval
       Geohash36::Interval.new [-90, 90]
+    end
+
+    def validate_geohash(geohash)
+      unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
+        raise ArgumentError, "It is not Geohash-36."
+      end
     end
 
 end # of module Geohash36
