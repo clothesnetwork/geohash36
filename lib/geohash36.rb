@@ -49,46 +49,46 @@ class Geohash36
     @coords.merge! coords
   end
 
-  def geohash_symbol(horiz_interval, vert_interval, coords)
-    vert = coords[:latitude]
-    horiz = coords[:longitude]
+  def geohash_symbol(lon_interval, lat_interval, coords)
+    lat = coords[:latitude]
+    lon = coords[:longitude]
 
-    horiz_intervals = Geohash36::Interval.convert_array(horiz_interval.split, include_right: false)
-    vert_intervals  = Geohash36::Interval.convert_array(vert_interval.split, include_left: false)
+    lon_intervals = Geohash36::Interval.convert_array(lon_interval.split, include_right: false)
+    lat_intervals = Geohash36::Interval.convert_array(lat_interval.split, include_left: false)
 
-    horiz_index = horiz_intervals.find_index  {|interval| interval.include? horiz }
-    vert_index  = vert_intervals.find_index  {|interval| interval.include? vert  }
+    lon_index = lon_intervals.find_index  {|interval| interval.include? lon }
+    lat_index = lat_intervals.find_index  {|interval| interval.include? lat }
 
-    { symbol: GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-vert_index][horiz_index],
-      horiz_interval: horiz_intervals[horiz_index],
-      vert_interval: vert_intervals[vert_index] }
+    { symbol: GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-lat_index][lon_index],
+      lon_interval: lon_intervals[lon_index],
+      lat_interval: lat_intervals[lat_index] }
   end
 
   def to_geohash(coords)
-    horiz_interval = Geohash36::Interval.new [-180, 180]
-    vert_interval =  Geohash36::Interval.new [-90, 90]
+    lon_interval = Geohash36::Interval.new [-180, 180]
+    lat_interval = Geohash36::Interval.new [-90, 90]
     geohash = ""
 
     (0..9).each do
-      result = geohash_symbol(horiz_interval, vert_interval, coords)
-      horiz_interval = result[:horiz_interval]
-      vert_interval  = result[:vert_interval]
+      result = geohash_symbol(lon_interval, lat_interval, coords)
+      lon_interval = result[:lon_interval]
+      lat_interval  = result[:lat_interval]
       geohash << result[:symbol]
     end
     geohash
   end
 
   def to_coords(geohash)
-    horiz_interval = Geohash36::Interval.new [-180, 180]
-    vert_interval =  Geohash36::Interval.new [-90, 90]
+    lon_interval = Geohash36::Interval.new [-180, 180]
+    lat_interval = Geohash36::Interval.new [-90, 90]
 
     unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
       raise ArgumentError, "It is not Geohash-36."
     end
 
     geohash.each_char do |c|
-      horiz_intervals = Geohash36::Interval.convert_array(horiz_interval.split)
-      vert_intervals  = Geohash36::Interval.convert_array(vert_interval.split)
+      lon_intervals = Geohash36::Interval.convert_array(lon_interval.split)
+      lat_intervals = Geohash36::Interval.convert_array(lat_interval.split)
 
       latitude_index = 0
       longitude_index = 0
@@ -98,11 +98,11 @@ class Geohash36
           longitude_index = row.find_index {|symbol| symbol == c}
         end
       end
-      horiz_interval = horiz_intervals[longitude_index]
-      vert_interval = vert_intervals  [latitude_index]
+      lon_interval = lon_intervals[longitude_index]
+      lat_interval = lat_intervals[latitude_index]
     end
 
-    { latitude: vert_interval.middle.round(@accuracy) , longitude: horiz_interval.middle.round(@accuracy) }
+    { latitude: lat_interval.middle.round(@accuracy) , longitude: lon_interval.middle.round(@accuracy) }
   end
 
 end # of module Geohash36
