@@ -17,6 +17,7 @@ class Geohash36
     ['n', 'N', 'P', 'q', 'Q', 'r'],
     ['R', 't', 'T', 'V', 'W', 'X']
   ]
+  GEOMATRIX_MAX_INDEX = 5
 
   attr_reader :coords
   attr_reader :hash
@@ -58,7 +59,7 @@ class Geohash36
     horiz_index = horiz_intervals.find_index  {|interval| interval.include? horiz }
     vert_index  = vert_intervals.find_index  {|interval| interval.include? vert  }
 
-    { symbol: GEOCODE_MATRIX[5-vert_index][horiz_index],
+    { symbol: GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-vert_index][horiz_index],
       horiz_interval: horiz_intervals[horiz_index],
       vert_interval: vert_intervals[vert_index] }
   end
@@ -93,7 +94,7 @@ class Geohash36
       longitude_index = 0
       GEOCODE_MATRIX.each_with_index do |row, index|
         if row.any? {|symbol| symbol == c}
-          latitude_index = 5-index
+          latitude_index = GEOMATRIX_MAX_INDEX-index
           longitude_index = row.find_index {|symbol| symbol == c}
         end
       end
