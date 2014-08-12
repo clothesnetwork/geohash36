@@ -1,4 +1,5 @@
 class Geohash36::Interval < Array
+
   def initialize(array = [0, 0], options = {})
     array.try(:compact!)
     raise ArgumentError, "Not valid array for geohash interval" unless array.length == 2
@@ -54,4 +55,5 @@ class Geohash36::Interval < Array
     intervals.last.configure(include_right: true) unless options[:include_right]
     intervals
   end
+
 end

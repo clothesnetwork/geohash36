@@ -1,39 +1,108 @@
-#!/usr/bin/env ruby
-
-
 # Standard library includes
 require 'bundler'
 require 'thor'
 require 'rake'
 
-# Custom library includes
-require_relative 'geohash36/core_ext'
-
+require 'ruby-try'
 
 # @module         module geohash36
 # @brief          geohash36 modules and classes namespace
-module Geohash36
+class Geohash36
 
-  require_relative 'geohash36/version'
-  require_relative 'geohash36/error'
+  GEOCODE_MATRIX = [
+    ['2', '3', '4', '5', '6', '7'],
+    ['8', '9', 'b', 'B', 'C', 'd'],
+    ['D', 'F', 'g', 'G', 'h', 'H'],
+    ['j', 'J', 'K', 'l', 'L', 'M'],
+    ['n', 'N', 'P', 'q', 'Q', 'r'],
+    ['R', 't', 'T', 'V', 'W', 'X']
+  ]
 
-  # @module     module Mixin
-  # @brief      Mixin module contains various functions to be used in other components
-  module Mixin
+  attr_reader :coords
+  attr_reader :hash
+  attr_accessor :accuracy
 
-    # autoload :Guess, 'geohash36/mixin/'
+  def initialize(obj = { latitude: 0, longitude: 0 })
+    @accuracy = 6
+    if obj.kind_of? Hash
+      @hash = to_geohash(obj)
+      @coords = obj
+    elsif obj.kind_of? String
+      @hash = obj
+      @coords = to_coords(obj)
+    else
+      raise ArgumentError, "Argument type should be hash or string"
+    end
+  end
 
-  end # of module Mixing
+  def hash=(geohash)
+    raise ArgumenError unless geohash.kind_of? String
+    @hash = geohash
+    @coords = to_coords(geohash)
+  end
 
-  # autoload :Cache,      'geohash36/library/cache'
-  # autoload :Choice,     'geohash36/library/choice'
 
+  def coords=(coords)
+    raise ArgumenError unless coords.kind_of? Hash
+    @hash = to_geohash(coords)
+    @coords.merge! coords
+  end
 
-  DEFAULT_CONFIG      = '.geohash36/config.yaml'.freeze
+  def geohash_symbol(horiz_interval, vert_interval, coords)
+    vert = coords[:latitude]
+    horiz = coords[:longitude]
 
-  class << self
+    horiz_intervals = Geohash36::Interval.convert_array(horiz_interval.split, include_right: false)
+    vert_intervals  = Geohash36::Interval.convert_array(vert_interval.split, include_left: false)
 
-  end # of class << self
+    horiz_index = horiz_intervals.find_index  {|interval| interval.include? horiz }
+    vert_index  = vert_intervals.find_index  {|interval| interval.include? vert  }
+
+    { symbol: GEOCODE_MATRIX[5-vert_index][horiz_index],
+      horiz_interval: horiz_intervals[horiz_index],
+      vert_interval: vert_intervals[vert_index] }
+  end
+
+  def to_geohash(coords)
+    horiz_interval = Geohash36::Interval.new [-180, 180]
+    vert_interval =  Geohash36::Interval.new [-90, 90]
+    geohash = ""
+
+    (0..9).each do
+      result = geohash_symbol(horiz_interval, vert_interval, coords)
+      horiz_interval = result[:horiz_interval]
+      vert_interval  = result[:vert_interval]
+      geohash << result[:symbol]
+    end
+    geohash
+  end
+
+  def to_coords(geohash)
+    horiz_interval = Geohash36::Interval.new [-180, 180]
+    vert_interval =  Geohash36::Interval.new [-90, 90]
+
+    unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
+      raise ArgumentError, "It is not Geohash-36."
+    end
+
+    geohash.each_char do |c|
+      horiz_intervals = Geohash36::Interval.convert_array(horiz_interval.split)
+      vert_intervals  = Geohash36::Interval.convert_array(vert_interval.split)
+
+      latitude_index = 0
+      longitude_index = 0
+      GEOCODE_MATRIX.each_with_index do |row, index|
+        if row.any? {|symbol| symbol == c}
+          latitude_index = 5-index
+          longitude_index = row.find_index {|symbol| symbol == c}
+        end
+      end
+      horiz_interval = horiz_intervals[longitude_index]
+      vert_interval = vert_intervals  [latitude_index]
+    end
+
+    { latitude: vert_interval.middle.round(@accuracy) , longitude: horiz_interval.middle.round(@accuracy) }
+  end
 
 end # of module Geohash36
 
