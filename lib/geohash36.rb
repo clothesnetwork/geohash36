@@ -51,16 +51,17 @@ class Geohash36
     @coords.merge! coords
   end
 
-  def self.geohash_symbol(lon_interval, lat_interval, coords)
+  def self.geohash_symbol!(lon_interval, lat_interval, coords)
     lon_intervals = Geohash36::Interval.convert_array(lon_interval.split, include_right: false)
     lat_intervals = Geohash36::Interval.convert_array(lat_interval.split, include_left: false)
 
     lon_index = lon_intervals.index  {|interval| interval.include? coords[:longitude] }
     lat_index = lat_intervals.index  {|interval| interval.include? coords[:latitude] }
 
-    { symbol: GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-lat_index][lon_index],
-      lon_interval: lon_intervals[lon_index],
-      lat_interval: lat_intervals[lat_index] }
+    lon_interval.update lon_intervals[lon_index]
+    lat_interval.update lat_intervals[lat_index]
+
+    GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-lat_index][lon_index]
   end
 
   def self.to_geohash(coords)
@@ -69,10 +70,7 @@ class Geohash36
     geohash = ""
 
     (0...GEOCODE_LENGTH).each do
-      result = Geohash36.geohash_symbol(lon_interval, lat_interval, coords)
-      lon_interval = result[:lon_interval]
-      lat_interval = result[:lat_interval]
-      geohash << result[:symbol]
+      geohash << Geohash36.geohash_symbol!(lon_interval, lat_interval, coords)
     end
     geohash
   end
