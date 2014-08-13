@@ -17,12 +17,12 @@ Gem::Specification.new do |spec|
   spec.description          = %q(Commandline interface and library to the Geohash36 Algorithm)
   spec.summary              = spec.description
 
-  spec.authors              = [ 'Bjoern Rennhak' ]
-  spec.email                = [ 'bjoern@clothesnetwork.com' ]
+  spec.authors              = [ 'Bjoern Rennhak', 'Oleg Orlov' ]
+  spec.email                = [ 'bjoern@clothesnetwork.com', 'orelcokolov@gmail.com' ]
 
   spec.homepage             = 'http://github.com/clothesnetwork/geohash36'
 
-  spec.licenses             = %w[Closed]
+  spec.licenses             = %w[MIT]
 
   spec.date                 = DateTime.now.to_s.split( 'T' ).first
   spec.version              = Geohash36::VERSION
