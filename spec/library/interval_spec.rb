@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+
+# Custom include
 require 'spec_helper'
 
 describe Geohash36::Interval do
@@ -43,8 +46,8 @@ describe Geohash36::Interval do
         expect{subject.update [1, 3]}.to change{subject}.to([1,3])
       end
     end
-  end
 
-end
+  end # of context
+end # of describe Geohash36::Interval
 
-
+# vim:ts=2:tw=100:wm=100:syntax=ruby
