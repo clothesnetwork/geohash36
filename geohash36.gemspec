@@ -87,38 +87,16 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'ptools'
   spec.add_runtime_dependency 'os'
 
-  # Database (Volatile)
-  spec.add_runtime_dependency 'redis'
-  spec.add_runtime_dependency 'hiredis'
-  spec.add_runtime_dependency 'redis-objects'
-
   # Data RPCs and Messaging
   spec.add_runtime_dependency 'msgpack'
   # spec.add_runtime_dependency 'xmpp4r'
   # spec.add_runtime_dependency 'xmpp4r-simple' # , :git => 'git://github.com/blaine/xmpp4r-simple.git'
   spec.add_runtime_dependency 'amqp'
 
-  spec.add_runtime_dependency 'faraday'
   spec.add_runtime_dependency 'mime-types'
-
-  # Data Exchange Containers/Parsing
-  spec.add_runtime_dependency 'oj'
-  spec.add_runtime_dependency 'ox'
-  spec.add_runtime_dependency 'nokogiri'
-  spec.add_runtime_dependency 'hpricot'
-  spec.add_runtime_dependency 'cobravsmongoose'
-
-  # Caching
-  spec.add_runtime_dependency 'moneta'
-
-  # Mail
-  spec.add_runtime_dependency 'pony'
 
   # l10n
   spec.add_runtime_dependency 'gettext'
-
-  # Rest interface
-  spec.add_runtime_dependency 'rack'
 
   # Monadic/Functional
   spec.add_runtime_dependency 'andand'
