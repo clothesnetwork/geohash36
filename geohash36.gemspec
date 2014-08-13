@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.authors              = [ 'Bjoern Rennhak' ]
   spec.email                = [ 'bjoern@clothesnetwork.com' ]
 
-  spec.homepage             = 'http://clothesnetwork.com'
+  spec.homepage             = 'http://github.com/clothesnetwork/geohash36'
 
   spec.licenses             = %w[Closed]
 
@@ -80,33 +80,12 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'thor'
   spec.add_runtime_dependency 'ruby-try', '~> 1.1.1'
 
-  # Runtime multiplexer
-  spec.add_runtime_dependency 'foreman'
-  spec.add_runtime_dependency 'unicorn'
-  spec.add_runtime_dependency 'einhorn'
-
   # Package building
   spec.add_runtime_dependency 'fpm'
 
   # Shell
   spec.add_runtime_dependency 'ptools'
   spec.add_runtime_dependency 'os'
-
-  # Encryption / Security
-  spec.add_runtime_dependency 'bcrypt-ruby'
-  spec.add_runtime_dependency 'scrypt'
-
-  # Database ORM (Persistent)
-  spec.add_runtime_dependency 'datamapper'
-  spec.add_runtime_dependency 'dm-core'
-  spec.add_runtime_dependency 'dm-tags'
-  spec.add_runtime_dependency 'dm-migrations'
-  spec.add_runtime_dependency 'dm-types'
-  spec.add_runtime_dependency 'dm-enum'
-  spec.add_runtime_dependency 'dm-validations'
-  spec.add_runtime_dependency 'dm-timestamps'
-  spec.add_runtime_dependency 'dm-sqlite-adapter'
-  spec.add_runtime_dependency 'dm-do-adapter'
 
   # Database (Volatile)
   spec.add_runtime_dependency 'redis'
@@ -141,20 +120,13 @@ Gem::Specification.new do |spec|
   # Rest interface
   spec.add_runtime_dependency 'rack'
 
-  # Hypermedia
-  spec.add_runtime_dependency 'hyperresource'
-  spec.add_runtime_dependency 'halidator'
-
   # Monadic/Functional
   spec.add_runtime_dependency 'andand'
   spec.add_runtime_dependency 'ick'
 
   # Misc System
   spec.add_runtime_dependency 'awesome_print'
-  spec.add_runtime_dependency 'ntp'
   spec.add_runtime_dependency 'uuid'
-  spec.add_runtime_dependency 'money'
-
 
   ## System libraries needed (info for the user)
   # spec.requirements 'iconv zlib libmagic'

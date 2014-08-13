@@ -1,16 +1,20 @@
-source "https://rubygems.org"
+# File: Gemfile
 
+# Sources to draw gems from
+source "https://rubygems.org"
+# source 'http://gems.rubyforge.org'
+# source 'http://gemcutter.org'
+
+
+# Depend on a certain ruby version
 ruby '2.1.2'
+
 
 group :default do # {{{
 
   # System
   gem 'bundler'
   gem 'rake'
-  gem 'moneta'
-  gem 'redis'
-
-  gem 'ruby-try', '~> 1.1.1'
 
 end # }}}
 
@@ -90,9 +94,6 @@ group :docs do # {{{
   gem 'github-markup'
 
   gem 'htmlentities'
-
-  gem 'dm-visualizer', require: false
-
   # gem 'gollum'
 
   # Documentation
