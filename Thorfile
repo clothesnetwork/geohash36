@@ -8,7 +8,6 @@ $LOAD_PATH << 'lib'
 # System includes
 require 'bundler'
 require 'fileutils'
-require "moneta"
 
 # Make Thor scripts debug-able, e.g. ruby -r debug -- Thorfile
 require 'thor' unless defined? Thor::Runner
