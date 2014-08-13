@@ -3,7 +3,7 @@
 
 # @module   Geohash36 Module
 # @brief    Implements the Geohash36 module wrapper around the Geohash36 API
-module Geohash36
+class Geohash36
 
   VERSION = `git describe --tags`.split("-").first || "0.1.0"
 

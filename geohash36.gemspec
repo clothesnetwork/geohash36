@@ -41,7 +41,6 @@ Gem::Specification.new do |spec|
                                   AUTHORS.md
                                   CHANGELOG.md
                                   COPYING.md
-                                  FAQ.md
                                   LICENSE.md
                                   MAINTAINERS.md
                                   Gemfile
@@ -79,6 +78,7 @@ Gem::Specification.new do |spec|
 
   # General
   spec.add_runtime_dependency 'thor'
+  spec.add_runtime_dependency 'ruby-try', '~> 1.1.1'
 
   # Runtime multiplexer
   spec.add_runtime_dependency 'foreman'
@@ -165,11 +165,11 @@ Gem::Specification.new do |spec|
 
   ## Post Install
   spec.post_install_message = <<-EOS
-      ____ _____ ___  _   _    _    ____  _   _ _____  __   
-     / ___| ____/ _ \| | | |  / \  / ___|| | | |___ / / /_  
-    | |  _|  _|| | | | |_| | / _ \ \___ \| |_| | |_ \| '_ \ 
+      ____ _____ ___  _   _    _    ____  _   _ _____  __
+     / ___| ____/ _ \| | | |  / \  / ___|| | | |___ / / /_
+    | |  _|  _|| | | | |_| | / _ \ \___ \| |_| | |_ \| '_ \
     | |_| | |__| |_| |  _  |/ ___ \ ___) |  _  |___) | (_) |
-     \____|_____\___/|_| |_/_/   \_\____/|_| |_|____/ \___/ 
+     \____|_____\___/|_| |_/_/   \_\____/|_| |_|____/ \___/
 
     (c) #{spec.date.to_s}, All rights reserved
     Clothes Network Ltd., Bjoern Rennhak

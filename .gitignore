@@ -7,3 +7,4 @@ target
 graph-recommendation.iml
 thrift/
 lib/geohash36/man
+coverage/

@@ -26,9 +26,10 @@ guard :shell, :all_on_start => false do
 end # of guard :shell, :all_on_start => false do
 
 
-guard :rspec do
+guard :rspec, cmd: 'bundle exec rspec' do
   watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
+  watch(%r{^lib/geohash36/(.+)\.rb$})     { |m| "spec/#{m[1]}_spec.rb" }
+  watch('lib/geohash36.rb')     { 'spec' }
   watch('spec/spec_helper.rb')  { 'spec' }
 end
 
@@ -56,7 +57,7 @@ class Counter
 
   # @fn         def get filename = @path # {{{
   # @brief      Get counter from dumpfile
-  # 
+  #
   # @param      [String]      filename        Filename string
   #
   # @return     [Integer]     Returns integer counter
@@ -75,7 +76,7 @@ class Counter
 
   # @fn         def put counter, filename = @path # {{{
   # @brief      Put counter to dumpfile
-  # 
+  #
   # @param      [Integer]     counter         Counter
   # @param      [String]      filename        Filename string
   def put counter, filename = @path
@@ -96,7 +97,7 @@ class Counter
 
   # @fn         def execute? # {{{
   # @brief      Boolean switch if counter is modulo the trigger index
-  # 
+  #
   # @return     [Integer]     mod             Modulo trigger number
   # @param      [String]      filename        Filename string
   #
