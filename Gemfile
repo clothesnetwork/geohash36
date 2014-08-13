@@ -33,12 +33,6 @@ group :development do # {{{
     gem 'pry-stack_explorer'
   end
 
-  gem 'lorem'
-
-  # Re-loads app after every request
-  gem 'shotgun'
-  gem 'rerun'
-
   gem 'guard'
   gem 'guard-shell'
 
@@ -51,22 +45,24 @@ end # }}}
 
 group :test do # {{{
 
-  # Testing / Development
-  gem 'aruba'
+  # Unit-tests
   gem 'rspec', '~> 3.0.0'
   gem 'rspec-its'
   gem 'rspec-mocks'
   gem 'guard-rspec', require: false
+
+  # Integration tests
+  gem 'aruba'
+  gem 'cucumber'
+
+  # Metrics
   gem 'simplecov', '~> 0.9.0'
   gem 'simplecov-rcov'
   gem 'simplecov-rcov-text'
   gem 'metric_fu', '>= 4.5.x'
 
-  # gem 'dm-sweatshop'
-  gem 'randexp' # used by dm-sweatshop
-
-  gem 'cucumber'
-  gem 'capybara'
+  # Fixture helper
+  gem 'randexp'
 
 end # }}}
 
@@ -89,12 +85,10 @@ end # }}}
 group :docs do # {{{
 
   gem 'yumlcmd'
-  gem 'coderay' # syntax highlighting and code formatting in html
+  gem 'coderay'
   gem 'redcarpet'
   gem 'github-markup'
-
   gem 'htmlentities'
-  # gem 'gollum'
 
   # Documentation
   gem 'yard'
