@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Geohash36 do
+  it { expect{Geohash36.new 111 }.to raise_error(ArgumentError) }
+  it { expect{Geohash36.new "BB99999999"}.not_to raise_error }
+  it { expect{Geohash36.new latitude: 1, longitude: 2}.not_to raise_error }
+
   context "when default args" do
     context "coordinates" do
       subject { Geohash36.new }
@@ -31,8 +35,11 @@ describe Geohash36 do
         subject.hash = some_hash
         expect(subject.coords).to eq(some_coords)
       end
+
+      it { expect{subject.hash = ""}.to raise_error(ArgumentError) }
     end
 
   end
+
 
 end

@@ -3,10 +3,12 @@ require 'rspec/mocks'
 require 'rspec/its'
 require 'rspec/expectations'
 require 'ruby-try'
+require 'simplecov'
+
+require 'geohash36'
 
 Bundler.setup
 
-require 'geohash36'
 
 RSpec.configure do |config|
 
@@ -38,3 +40,10 @@ RSpec::Matchers.define :include? do |expected|
     "include #{expected}"
   end
 end
+
+
+SimpleCov.profiles.define 'geohash36' do
+  add_filter '/spec/'
+end
+
+SimpleCov.start 'geohash36'

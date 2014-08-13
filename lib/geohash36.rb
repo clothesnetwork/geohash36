@@ -92,8 +92,8 @@ class Geohash36
         end
       end
 
-      lon_interval = lon_intervals[lon_index]
-      lat_interval = lat_intervals[lat_index]
+      lon_interval.update lon_intervals[lon_index]
+      lat_interval.update lat_intervals[lat_index]
     end
 
     { latitude:  lat_interval.middle.round(accuracy) ,
