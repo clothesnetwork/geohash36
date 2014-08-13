@@ -41,7 +41,6 @@ Gem::Specification.new do |spec|
                                   AUTHORS.md
                                   CHANGELOG.md
                                   COPYING.md
-                                  FAQ.md
                                   LICENSE.md
                                   MAINTAINERS.md
                                   Gemfile

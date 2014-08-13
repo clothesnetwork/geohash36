@@ -26,6 +26,18 @@ project.each_pair { |name, value| self.instance_variable_set( "@#{name.to_s}", v
 
 ### General
 
+desc "Generate proper README file from templates" # {{{
+task :readme do |t|
+  source    = "README.md.template"
+  target    = "README.md"
+
+  content      = File.readlines( source ).collect!{ |line| line.rstrip }
+  version   = `git describe --tags`.strip
+
+  content[ content.index( "$Version$" ) ] = "Version " + version if( content.include?( "$Version$" ) )
+  File.write( target, content.join("\n") )
+  puts "(II) #{target.to_s} generated from #{source.to_s}"
+end # }}}
 
 ### Actions
 
