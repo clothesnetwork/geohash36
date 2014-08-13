@@ -2,7 +2,7 @@ class Geohash36::Interval < Array
 
   def initialize(array = [0, 0], options = {})
     array.try(:compact!)
-    raise ArgumentError, "Not valid array for geohash interval" unless array.length == 2
+    validate_array(array)
     array.each{|element| self.push element}
     defaults = {include_right: true, include_left: true }
     @opts = defaults.merge options
@@ -20,6 +20,13 @@ class Geohash36::Interval < Array
 
   def split
     split3.each_with_object([]){|interval, result| result.concat interval.split2}
+  end
+
+  def update(array)
+    array.try(:compact!)
+    validate_array(array)
+    self.clear
+    array.each{|element| self.push element}
   end
 
   def inspect
@@ -55,5 +62,10 @@ class Geohash36::Interval < Array
     intervals.last.configure(include_right: true) unless options[:include_right]
     intervals
   end
+
+  private
+    def validate_array(array)
+      raise ArgumentError, "Not valid array for geohash interval" unless array.length == 2
+    end
 
 end
