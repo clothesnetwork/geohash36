@@ -1,6 +1,11 @@
+#!/usr/bin/env ruby
+
+# System include
 require 'spec_helper'
 
+
 describe Geohash36 do
+
   it { expect{Geohash36.new 111 }.to raise_error(ArgumentError) }
   it { expect{Geohash36.new "BB99999999"}.not_to raise_error }
   it { expect{Geohash36.new latitude: 1, longitude: 2}.not_to raise_error }
@@ -37,9 +42,8 @@ describe Geohash36 do
       end
 
       it { expect{subject.hash = ""}.to raise_error(ArgumentError) }
-    end
+    end # of context
+  end # of context
+end # of describe 
 
-  end
-
-
-end
+# vim:ts=2:tw=100:wm=100:syntax=ruby
