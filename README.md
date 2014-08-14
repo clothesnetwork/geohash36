@@ -1,5 +1,5 @@
 # Geohash36
-Version 0.1.0-12-g10937da
+Version 0.1.0-25-g5ffc4a3
 
 
 ## WHAT IS THE GEOHASH36 PROJECT ?

@@ -34,6 +34,7 @@ group :development do # {{{
   end
 
   gem 'guard'
+  gem 'guard-rake'
   gem 'guard-shell'
 
   # Notifications from live-reload etc.

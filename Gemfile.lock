@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    geohash36 (0.2.0)
+    geohash36 (0.1.0)
       amqp
       andand
       awesome_print
@@ -138,6 +138,9 @@ GEM
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
+    guard-rake (0.0.9)
+      guard
+      rake
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
@@ -386,6 +389,7 @@ DEPENDENCIES
   github-markup
   growl
   guard
+  guard-rake
   guard-rspec
   guard-shell
   htmlentities

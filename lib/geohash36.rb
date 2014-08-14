@@ -7,9 +7,6 @@ require 'thor'
 require 'rake'
 require 'ruby-try'
 
-
-# @module         module geohash36
-# @brief          geohash36 modules and classes namespace
 class Geohash36
 
   G = self
@@ -57,19 +54,11 @@ class Geohash36
     @coords.merge! coords
   end
 
-  def self.geohash_symbol!(lon_interval, lat_interval, coords)
-    lon_intervals = G::Interval.convert_array(lon_interval.split, include_right: false)
-    lat_intervals = G::Interval.convert_array(lat_interval.split, include_left: false)
 
-    lon_index = lon_intervals.index {|interval| interval.include? coords[:longitude] }
-    lat_index = lat_intervals.index {|interval| interval.include? coords[:latitude]  }
-
-    lon_interval.update lon_intervals[lon_index]
-    lat_interval.update lat_intervals[lat_index]
-
-    GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-lat_index][lon_index]
-  end
-
+  # Convert coordinates pair to geohash
+  #
+  # @param coords [Hash] coordinates to convert
+  # @return [String]
   def self.to_geohash(coords)
     lon_interval = G.basic_lon_interval
     lat_interval = G.basic_lat_interval
@@ -110,14 +99,30 @@ class Geohash36
       G::Interval.new [-180, 180]
     end
 
+    # @private
     def self.basic_lat_interval
       G::Interval.new [-90, 90]
     end
 
+    # @private
     def self.validate_geohash(geohash)
       unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
         raise ArgumentError, "It is not Geohash-36."
       end
+    end
+
+    # @private
+    def self.geohash_symbol!(lon_interval, lat_interval, coords)
+      lon_intervals = G::Interval.convert_array(lon_interval.split, include_right: false)
+      lat_intervals = G::Interval.convert_array(lat_interval.split, include_left: false)
+
+      lon_index = lon_intervals.index {|interval| interval.include? coords[:longitude] }
+      lat_index = lat_intervals.index {|interval| interval.include? coords[:latitude]  }
+
+      lon_interval.update lon_intervals[lon_index]
+      lat_interval.update lat_intervals[lat_index]
+
+      GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-lat_index][lon_index]
     end
 
 end # of module Geohash36

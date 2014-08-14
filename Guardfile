@@ -33,6 +33,10 @@ guard :rspec, cmd: 'bundle exec rspec' do
   watch('spec/spec_helper.rb')  { 'spec' }
 end
 
+guard 'rake', :task => 'docs:generate' do
+  watch(%r{^lib/geohash36/(.+)\.rb$})
+  watch('lib/geohash36.rb')
+end
 
 ### Simple Helpers
 
