@@ -1,15 +1,19 @@
-# Standard library includes
+#!/usr/bin/env ruby
+
+
+# Standard includes
 require 'bundler'
 require 'thor'
 require 'rake'
-
 require 'ruby-try'
+
 
 # @module         module geohash36
 # @brief          geohash36 modules and classes namespace
 class Geohash36
 
   G = self
+
   GEOCODE_MATRIX = [
     ['2', '3', '4', '5', '6', '7'],
     ['8', '9', 'b', 'B', 'C', 'd'],
@@ -18,6 +22,7 @@ class Geohash36
     ['n', 'N', 'P', 'q', 'Q', 'r'],
     ['R', 't', 'T', 'V', 'W', 'X']
   ]
+
   GEOMATRIX_MAX_INDEX = 5
   GEOCODE_LENGTH = 10
   DEFAULT_ACCURACY = 6
