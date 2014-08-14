@@ -9,8 +9,6 @@ require 'ruby-try'
 
 class Geohash36
 
-  G = self
-
   GEOCODE_MATRIX = [
     ['2', '3', '4', '5', '6', '7'],
     ['8', '9', 'b', 'B', 'C', 'd'],
@@ -31,12 +29,12 @@ class Geohash36
   def initialize(obj = { latitude: 0, longitude: 0 })
     @accuracy = DEFAULT_ACCURACY
     if obj.kind_of? Hash
-      @hash = G.to_geohash(obj)
+      @hash = Geohash36.to_geohash(obj)
       @coords = obj
     elsif obj.kind_of? String
-      G.validate_geohash(obj)
+      Geohash36.validate_geohash(obj)
       @hash = obj
-      @coords = G.to_coords(obj, @accuracy)
+      @coords = Geohash36.to_coords(obj, @accuracy)
     else
       raise ArgumentError, "Argument type should be hash or string"
     end
@@ -45,12 +43,12 @@ class Geohash36
   def hash=(geohash)
     raise ArgumenError unless geohash.kind_of? String
     @hash = geohash
-    @coords = G.to_coords(geohash, @accuracy)
+    @coords = Geohash36.to_coords(geohash, @accuracy)
   end
 
   def coords=(coords)
     raise ArgumenError unless coords.kind_of? Hash
-    @hash = G.to_geohash(coords)
+    @hash = Geohash36.to_geohash(coords)
     @coords.merge! coords
   end
 
@@ -60,21 +58,21 @@ class Geohash36
   # @param coords [Hash] coordinates to convert
   # @return [String]
   def self.to_geohash(coords)
-    lon_interval = G.basic_lon_interval
-    lat_interval = G.basic_lat_interval
+    lon_interval = Geohash36.basic_lon_interval
+    lat_interval = Geohash36.basic_lat_interval
 
-    (0...GEOCODE_LENGTH).map{G.geohash_symbol!(lon_interval, lat_interval, coords)}.join
+    (0...GEOCODE_LENGTH).map{Geohash36.geohash_symbol!(lon_interval, lat_interval, coords)}.join
   end
 
   def self.to_coords(geohash, accuracy = DEFAULT_ACCURACY)
-    G.validate_geohash(geohash)
+    Geohash36.validate_geohash(geohash)
 
-    lon_interval = G.basic_lon_interval
-    lat_interval = G.basic_lat_interval
+    lon_interval = Geohash36.basic_lon_interval
+    lat_interval = Geohash36.basic_lat_interval
 
     geohash.each_char do |c|
-      lon_intervals = G::Interval.convert_array(lon_interval.split)
-      lat_intervals = G::Interval.convert_array(lat_interval.split)
+      lon_intervals = Geohash36::Interval.convert_array(lon_interval.split)
+      lat_intervals = Geohash36::Interval.convert_array(lat_interval.split)
 
       lat_index, lon_index = 0, 0
 
@@ -96,12 +94,12 @@ class Geohash36
 
   private
     def self.basic_lon_interval
-      G::Interval.new [-180, 180]
+      Geohash36::Interval.new [-180, 180]
     end
 
     # @private
     def self.basic_lat_interval
-      G::Interval.new [-90, 90]
+      Geohash36::Interval.new [-90, 90]
     end
 
     # @private
@@ -113,8 +111,8 @@ class Geohash36
 
     # @private
     def self.geohash_symbol!(lon_interval, lat_interval, coords)
-      lon_intervals = G::Interval.convert_array(lon_interval.split, include_right: false)
-      lat_intervals = G::Interval.convert_array(lat_interval.split, include_left: false)
+      lon_intervals = Geohash36::Interval.convert_array(lon_interval.split, include_right: false)
+      lat_intervals = Geohash36::Interval.convert_array(lat_interval.split, include_left: false)
 
       lon_index = lon_intervals.index {|interval| interval.include? coords[:longitude] }
       lat_index = lat_intervals.index {|interval| interval.include? coords[:latitude]  }
