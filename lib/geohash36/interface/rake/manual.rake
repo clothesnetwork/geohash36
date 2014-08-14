@@ -16,7 +16,7 @@ task :build   => [ 'man:clean', 'man:build' ]
 task :release => [ 'man:clean', 'man:build' ]
 task :clean   => [ 'man:clean' ]
 
-namespace :man do # {{{
+namespace :man do
 
   desc 'Build the manual pages' # {{{
   task :build do
