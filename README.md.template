@@ -4,9 +4,50 @@ $Version$
 
 ## WHAT IS THE GEOHASH36 PROJECT ?
 
-Geohash36 [1] ...
+In order to describe any location on the planet we normally use Longitude and Latitude geo
+coordinates. While working with two variables like this is fine, it is prone to certain issues such
+as how to control arbitrary precision, ease or querying, means of finding locations of proximity,
+having just one unique identifier and so on.
 
-[1] 
+Out of this reason Gustavo Niemeyer created the Geohash [1][2] algorithm. It is a hierarchical spatial
+data structure which subdivides space into buckets of grid shape. The two coordinate variables are
+turned into one local perceptual hash, in which similar spaces share more significant string
+similarity (from left to right).
+
+This allows very easily to query for similar regions by left to right character matching and the
+calculation of promimity by for instance edit distance. One can also imagine a efficient data
+structure which utilizes a TRIE to store such coordinates.
+
+Original Geohash algorithm is based on radix 32 system which leaves us with certain problems.
+Geohash 36 [2] [3], originally developed for compression of world coordinate data, utilizes radix 36
+notation allowing for higher precision and leverages a character set designed for electronic storage
+and communication rather than human memory and conversation.
+
+It uses an case sensitive alphabet of the characters "23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX" where
+characters were chosen to avoid vowels, vowel-like numbers, character confusion, and to use
+lowercase characters, which are generally distinct from their uppercase equivalents in standard
+typefaces.
+
+Alphabet conversion table [2]
+
+Decimal     0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17
+Geohash-36  2   3   4   5   6   7   8   9   b   B   C   d   D   F   g   G   h   H
+ 
+Decimal     18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+Geohash-36  j   J   K   l   L   M   n   N   P   q   Q   r   R   t   T   V   W   X
+
+Each character represents a further subdivision in a 6 by 6 grid - starting at the North-West
+(top-left) coordinate and continuing, row by row, to the South-East (bottom-right) [4].
+
+The Statue of Liberty, at coordinates 40.689167, -74.044444, is encoded as 9LVB4BH89g-m. The reverse
+decoding equates to 40.689168,-74.044445.
+
+[1] http://geohash.org/
+[2] http://en.wikipedia.org/wiki/Geohash
+[2] http://en.wikipedia.org/wiki/Geohash-36
+[3] http://geo36.org/
+[4] http://www.pubnub.com/blog/wp-content/uploads/2014/05/ProximityChat1.jpg
+
 
 ## FEATURES
 
@@ -16,7 +57,7 @@ Geohash36 [1] ...
   - RVM
   - Bundler
   - Thor
-  - Hypermedia
+  - Rake
   - Various Gems (see Gemfile)
 - Development
 - Development Base Libraries
@@ -53,15 +94,7 @@ replace existing versions before unpacking/installing new ones.
 Get a copy of current source from SCM
 
 ```sh
-~# git clone ssh://.... geohash36
-```
-
-Get submodules (may not apply)
-
-```sh
-~# cd geohash36
-~# git submodule init
-~# git submodule update
+~# git clone ssh://github.com/clothesnetwork/geohash36
 ```
 
 Install system dependencies (e.g. Debian/GNU)
@@ -123,6 +156,14 @@ interpreter. It uses several libraries and apps as outlied in the INSTALLING sec
 ## BUILD PROCESS
 
 Package building such as RPM or DEB has not been integrated at this time.
+The gem can be built by running
+
+```sh
+~# rake build
+```
+
+which creates a gemfile in pkg/.`
+
 
 ## SOFTWARE REQUIREMENTS
 
@@ -132,6 +173,7 @@ interpreter.
 ## CONFIGURING
 
 Configuration is handled at run-time via $HOME/.geohash36/config.yaml file.
+
 
 ## COMPILING & PACKAGING
 
@@ -146,7 +188,7 @@ Configuration is handled at run-time via $HOME/.geohash36/config.yaml file.
 ### Contributing to code & working on issues
 
 - Clone
-- Create issue in GitLab if issue not already created
+- Create issue in Github if issue not already created
 - Create a new feature branch from develop ( git checkout -b f10_my_new_feature develop)
 - Commit regularly ( every 5 mins or so )
 - Push once in a while ( once in 30 ~ 45 mins )
