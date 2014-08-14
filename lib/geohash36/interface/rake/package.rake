@@ -14,7 +14,7 @@ require 'rdiscount'
 # Set manual building deps
 task :clean   => [ 'package:clean' ]
 
-namespace :package do # {{{
+namespace :package do
 
   desc 'Clean all files from pkg folder' # {{{
   task :clean do

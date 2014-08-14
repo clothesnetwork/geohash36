@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-
-
 namespace :metric do
 
   desc "Run metric fu for project" # {{{
