@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+
+# Custom include
 require_relative 'geohash36'
 
 puts '-'*90
@@ -19,3 +22,5 @@ puts '-'*90
 ["l222222222222", "BB99999999999", "9LV5V9V4CqbJh", "BbCBt9BQ7N4Wb"].each do |hash|
   puts "#{Geohash36.new(hash).coords} for geohash #{hash}"
 end
+
+
