@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 
-namespace :docs do 
+namespace :docs do
 
   desc "Generate Yardoc documentation for this project" # {{{
   task :generate do |t|
@@ -15,6 +15,7 @@ namespace :docs do
 
     # Hide tags we don't want in yardoc output
     hidden           = %w[module class fn]
+    files = %w|lib/*.rb lib/**/*.rb lib/**/**/*.rb - COPYING.md AUTHORS.md|.join " "
 
     # Construct tag string for CLI command
     tags_line = ""
@@ -22,10 +23,10 @@ namespace :docs do
     hidden.each { |h| tags_line += " --hide-tag #{h.to_s}" }
 
     puts "(II) Generating multi-file yardoc output written to doc/yardoc"
-    system "yard --private --protected --markup-provider=redcarpet --markup=markdown #{tags_line.to_s} -o doc/yardoc lib/**/*.rb lib/**/**/*.rb - LICENSE MAINTAINERS API_DOCS.md"
+    system "yard --markup-provider=redcarpet --markup=markdown #{tags_line.to_s} -o doc/yardoc #{files}"
 
     puts "(II) Generating one-file yardoc output written to doc/yardoc_pdf"
-    system "yard --private --protected --markup-provider=redcarpet --markup=markdown --one-file #{tags_line.to_s} -o doc/yardoc_pdf lib/**/*.rb lib/**/**/*.rb - LICENSE MAINTAINERS API_DOCS.md"
+    system "yard --markup-provider=redcarpet --markup=markdown --one-file #{tags_line.to_s} -o doc/yardoc_pdf #{files}"
 
     # puts "(II) HTML to PDF written to doc/yardoc_pdf"
     # pdf = WickedPdf.new.pdf_from_string( File.read( "doc/yardoc_pdf/index.html" ) )

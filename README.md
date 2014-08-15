@@ -1,188 +1,78 @@
 # Geohash36
-Version 0.1.0-12-g10937da
+Version 0.1.0-39-g6343a25
+
+Geohash36 is a complete solution for geohashing coordinates. What is geohash?
+For example, the coordinate pair 40.689167, -74.044444 (NY City) produces a slightly shorter hash 9LVB4BH89g, which can be used in the URL http://geo36.org/9LVB4BH89g
+
+The main usages of Geohashes are
+* as a unique identifier.
+* represent point data e.g. in databases.
+
+## More about geohashing
+
+In order to describe any location on the planet we normally use Longitude and Latitude geo
+coordinates. While working with two variables like this is fine, it is prone to certain issues such
+as how to control arbitrary precision, ease or querying, means of finding locations of proximity,
+having just one unique identifier and so on.
+
+Out of this reason Gustavo Niemeyer created the Geohash [1][2] algorithm. It is a hierarchical spatial
+data structure which subdivides space into buckets of grid shape. The two coordinate variables are
+turned into one local perceptual hash, in which similar spaces share more significant string
+similarity (from left to right).
+
+This allows very easily to query for similar regions by left to right character matching and the
+calculation of promimity by for instance edit distance. One can also imagine a efficient data
+structure which utilizes a TRIE to store such coordinates.
+
+Original Geohash algorithm is based on radix 32 system which leaves us with certain problems.
+Geohash 36 [2] [3], originally developed for compression of world coordinate data, utilizes radix 36
+notation allowing for higher precision and leverages a character set designed for electronic storage
+and communication rather than human memory and conversation.
+
+It uses an case sensitive alphabet of the characters "23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX" where
+characters were chosen to avoid vowels, vowel-like numbers, character confusion, and to use
+lowercase characters, which are generally distinct from their uppercase equivalents in standard
+typefaces.
+
+Alphabet conversion table [2]
+
+Decimal     0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17
+Geohash-36  2   3   4   5   6   7   8   9   b   B   C   d   D   F   g   G   h   H
+
+Decimal     18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+Geohash-36  j   J   K   l   L   M   n   N   P   q   Q   r   R   t   T   V   W   X
+
+Each character represents a further subdivision in a 6 by 6 grid - starting at the North-West
+(top-left) coordinate and continuing, row by row, to the South-East (bottom-right) [4].
+
+The Statue of Liberty, at coordinates 40.689167, -74.044444, is encoded as 9LVB4BH89g-m. The reverse
+decoding equates to 40.689168,-74.044445.
+
+[1] http://geohash.org/
+[2] http://en.wikipedia.org/wiki/Geohash
+[2] http://en.wikipedia.org/wiki/Geohash-36
+[3] http://geo36.org/
+[4] http://www.pubnub.com/blog/wp-content/uploads/2014/05/ProximityChat1.jpg
 
 
-## WHAT IS THE GEOHASH36 PROJECT ?
+## Installing
 
-Geohash36 [1] ...
-
-[1]
-
-## FEATURES
-
-- Application
-  - Ruby VM (2.1 or better)
-- Feature Providing Base Libraries
-  - RVM
-  - Bundler
-  - Thor
-  - Hypermedia
-  - Various Gems (see Gemfile)
-- Development
-- Development Base Libraries
-  - Rake
-  - Thor
-- Code Quality
-  - Code review
-  - Yard & related  (gem install yard --no-ri --no-rdoc ; gem install rdiscount --no-ri --no-rdoc)
-  - Minimal controllers, delegated to proper Ruby classes
-  - Logic free view templates
-  - Proper Ruby OOP for base functionality
-  - MetricFu/RSpec/Cucumber/DBC/Vagrant/Docker/i18n
-
-## ON WHAT HARDWARE DOES IT RUN?
-
-This Software was originally developed and tested on 32-bit x86 / SMP based PCs running on
-Ubuntu and Gentoo GNU/Linux 3.12.x. Other direct Linux and Unix derivates should be viable too as
-long as all dynamical linking dependencys are met.
-
-
-## DOCUMENTATION
-
-A general developers API guide can be extracted from the Yardoc subdirectory which is able to
-generate HTML as well as PDF docs. Please refer to the [Rake|Make]file for additional information
-how to generate this documentation.
-
-
-## INSTALLING
-
-If you got this package as a packed tar.gz or tar.bz2 please unpack the contents in an appropriate
-folder e.g. ~/mysite/ and follow the supplied INSTALL or README documentation. Please delete or
-replace existing versions before unpacking/installing new ones.
-
-Get a copy of current source from SCM
-
-```sh
-~# git clone ssh://.... geohash36
-```
-
-Get submodules (may not apply)
-
-```sh
-~# cd geohash36
-~# git submodule init
-~# git submodule update
-```
-
-Install system dependencies (e.g. Debian/GNU)
-
-```sh
-~# apt-get install iconv
-~# apt-get install curl screen less vim
-~# apt-get install zlib1g zlib1g-dev
-```
-
-Install RVM (may not apply)
-
-```sh
-~# curl -sSL https://get.rvm.io | bash -s stable
-```
-
-Make sure to follow install instructions and also integrate it also into your shell. e.g. for ZSH,
-add this line to your .zshrc.
-
-```sh
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ;
-
-or
-
-~# echo "source /usr/local/rvm/scripts/rvm" >> ~/.zshrc
+By running gem comand
 
 ```
-
-Create proper RVM gemset
-
-```sh
-~# rvm --create use 2.1.2@geohash36_project
+gem install geohash36
 ```
 
-Install Ruby VM 2.1.2 or better
+or by adding to `Gemfile`
 
-```sh
-~# rvm install 2.1.2
+```ruby
+gem 'geohash36', git: 'https://github.com/clothesnetwork/geohash36'
 ```
 
-Install libraries via bundler
+## Usage
 
-```sh
-~# gem install bundler
-~# bundle
-```
+Basic usage can be found in demo.rb file
 
-## SOFTWARE REQUIREMENTS
+## Copyright
 
-This package was developed and compiled under Gentoo GNU/Linux 3.x with the Ruby 2.x.x.
-interpreter. It uses several libraries and apps as outlied in the INSTALLING section.
-
- - e.g. Debian/GNU Linux or Cygwin for MS Win
- - Ruby
- - RVM
- - Bundler
-
-
-## BUILD PROCESS
-
-Package building such as RPM or DEB has not been integrated at this time.
-
-## SOFTWARE REQUIREMENTS
-
-This package was developed and compiled under Gentoo GNU/Linux 3.x with the Ruby 2.x.x.
-interpreter.
-
-## CONFIGURING
-
-Configuration is handled at run-time via $HOME/.geohash36/config.yaml file.
-
-## COMPILING & PACKAGING
-
-```sh
-~# rake build
-~# rake package
-~# rake install
-```
-
-## DEVELOPING
-
-### Contributing to code & working on issues
-
-- Clone
-- Create issue in GitLab if issue not already created
-- Create a new feature branch from develop ( git checkout -b f10_my_new_feature develop)
-- Commit regularly ( every 5 mins or so )
-- Push once in a while ( once in 30 ~ 45 mins )
-- At completion, make merge request assigned to 'Bjoern Rennhak'. **Please do not merge directly to develop.**
-
-#### Rake Tasks
-
-For a full list of Rake tasks suported, use `rake -T`.
-
-Here is a current listing of all tasks:
-
-
-```
-$rake_tasks$
-```
-
-#### Thor Tasks
-
-For a full list of Thor tasks suported, use `thor -T`.
-
-Here is a current listing of all tasks:
-
-
-```
-$thor_tasks$
-```
-
-## IF SOMETHING GOES WRONG
-
-In case you enconter bugs which seem to be related to the package please check in
-the MAINTAINERS file for the associated person in charge and contact him or her directly. If
-there is no valid address then try to mail Bjoern Rennhak <bjoern AT clothesnetwork DOT com> to get
-some basic assistance in finding the right person in charge of this section of the project.
-
-
-## COPYRIGHT
-
-Please refer to the COPYRIGHT file in the various folders for explicit copyright notice.  Unless
-otherwise stated all remains protected and copyrighted by Bjoern Rennhak (bjoern AT clothesnetwork DOT com).
+Please refer to the COPYRIGHT file

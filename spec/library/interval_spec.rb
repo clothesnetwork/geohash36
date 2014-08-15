@@ -4,6 +4,8 @@
 require 'spec_helper'
 
 describe Geohash36::Interval do
+  it { expect{Geohash36::Interval.new [0]}.to raise_error(ArgumentError) }
+
   context "[0, 6]" do
     subject { Geohash36::Interval.new([0, 6]) }
 
