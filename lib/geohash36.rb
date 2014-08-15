@@ -1,13 +1,14 @@
 #!/usr/bin/env ruby
 
-
 # Standard includes
 require 'bundler'
 require 'thor'
 require 'rake'
 require 'ruby-try'
 
-# Provides complete solution for geohashing
+
+# @class    Geohash36
+# @brief    Provides complete solution for geohashing
 class Geohash36
 
   # Geocode-36 matrix for map
@@ -19,52 +20,64 @@ class Geohash36
     ['n', 'N', 'P', 'q', 'Q', 'r'],
     ['R', 't', 'T', 'V', 'W', 'X']
   ]
+
   # Needed for inversion direction of latitude
   GEOMATRIX_MAX_INDEX = 5
+
   # Standart length of geocode
-  GEOCODE_LENGTH = 10
+  GEOCODE_LENGTH      = 10
+
   # Accuracy for coordinates when converting from geohash
-  DEFAULT_ACCURACY = 6
+  DEFAULT_ACCURACY    = 6
 
   attr_reader :coords
   attr_reader :hash
   attr_accessor :accuracy
 
-  # Create new Geohash object from geohash or coordinates.
+  # @fn       def initialize obj = { latitude: 0, longitude: 0 } {{{
+  # @brief    Create new Geohash object from geohash or coordinates.
   #
-  # @param object [Hash, String]
-  # @example Pass geohash
-  #   Geohash36.new "l222222222222"
-  # @example Pass coordinates
-  #   Geohash36.new latitude: 80, longitude: 20
-  def initialize(obj = { latitude: 0, longitude: 0 })
+  # @param    [Hash or String]    object    Either Hash {latitude: value, longitude: value} or "geohash string"
+  #
+  # @example  Pass geohash
+  #           Geohash36.new "l222222222222"
+  # @example  Pass coordinates
+  #           Geohash36.new latitude: 80, longitude: 20
+  #
+  def initialize obj = { latitude: 0, longitude: 0 }
     @accuracy = DEFAULT_ACCURACY
+
     if obj.kind_of? Hash
-      Geohash36.validate_coords(obj)
-      @hash = Geohash36.to_geohash(obj)
+      Geohash36.validate_coords( obj )
+      @hash   = Geohash36.to_geohash( obj )
       @coords = obj
     elsif obj.kind_of? String
-      Geohash36.validate_geohash(obj)
-      @hash = obj
-      @coords = Geohash36.to_coords(obj, @accuracy)
+      Geohash36.validate_geohash( obj )
+      @hash   = obj
+      @coords = Geohash36.to_coords( obj, @accuracy )
     else
       raise ArgumentError, "Argument type should be hash or string"
     end
-  end
+  end # of def initialize }}}
 
+  # @fn       def hash=(geohash) {{{
   # Update geohash value. Coordinates will update automatically
   def hash=(geohash)
-    raise ArgumenError unless geohash.kind_of? String
-    @hash = geohash
-    @coords = Geohash36.to_coords(geohash, @accuracy)
-  end
+    raise ArgumenError unless( geohash.kind_of?( String ) )
+    @hash   = geohash
+    @coords = Geohash36.to_coords( geohash, @accuracy )
+  end # of def hash= }}}
 
-  # Update coordinates values. Geohash will update automatically
+  # @fn       def coords=(coords) {{{
+  # @brief    Update coordinates values. Geohash will update automatically
+  #
+  # @param    [Hash]      coords      Hash containing keys longitude, latitude with corresponding values.
+  #
   def coords=(coords)
-    raise ArgumenError unless coords.kind_of? Hash
-    @hash = Geohash36.to_geohash(coords)
+    raise ArgumenError unless( coords.kind_of?( Hash ) )
+    @hash = Geohash36.to_geohash( coords )
     @coords.merge! coords
-  end
+  end # }}}
 
 
   # Convert coordinates pair to geohash without creating an object
