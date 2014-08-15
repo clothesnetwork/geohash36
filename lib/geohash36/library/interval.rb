@@ -1,30 +1,39 @@
-# Designed to provide additional functionality for arrays
-# to handle geographical intervals.
+#!/usr/bin/env ruby
+
+# @class      class Geohash36::Interval < Array
+# @brief      Designed to provide additional functionality for arrays to handle geographical intervals.
 class Geohash36::Interval < Array
 
-  # @param array [Array<Fixnum, Float>] array with length 2.
-  # @param options [Hash]
-  #   options affects borders in interval. By default, all borders are included.
-  #   If you want to exclude left border, pass: `include_left: false`
-  #   If you want to exclude right border, pass: `include_right: false`
-  # @example With default args
-  #   Geohash36::Interval.new
-  # @example With array and options
-  #    Geohash36::Interval.new([0, 6], include_right: false)
-  def initialize array = [0, 0], options = {}
-    array.try(:compact!)
-    validate_array(array)
-    array.each{|element| self.push element}
-    defaults = {include_right: true, include_left: true }
-    @opts = defaults.merge options
-  end
-
-  # Replace old interval options with new one
+  # @fn       def initialize array = [0, 0], options = {} {{{
+  # @brief    Default constructor for Interval class
   #
-  # @param options [Hash] new options for interval
+  # @param    [Array<Fixnum, Float>]    array       Array with length 2.
+  # @param    [Hash]                    options     Hash containing default opts
+  #
+  # @info     Options affects borders in interval. By default, all borders are included.
+  #           If you want to exclude left border, pass: `include_left: false`
+  #           If you want to exclude right border, pass: `include_right: false`
+  #
+  # @example  With default args
+  #           Geohash36::Interval.new
+  # @example  With array and options
+  #           Geohash36::Interval.new([0, 6], include_right: false)
+  #
+  def initialize array = [0, 0], options = {}
+    array.try( :compact! )
+    validate_array( array )
+    array.each{ |element| self.push element }
+    defaults  = { include_right: true, include_left: true }
+    @opts     = defaults.merge options
+  end # of def initialize }}}
+
+  # @fn       def configure options = {} {{{
+  # @brief    Replace old interval options with new one
+  #
+  # @param    [Hash]    options     New options for interval
   def configure options = {}
     @opts.merge! options
-  end
+  end # of def configure }}}
 
   # Check if `number` between left and right border.
   #

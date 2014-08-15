@@ -135,6 +135,7 @@ class Geohash36
   end
 
   private
+
     def self.basic_lon_interval
       Geohash36::Interval.new [-180, 180]
     end
@@ -143,13 +144,13 @@ class Geohash36
       Geohash36::Interval.new [-90, 90]
     end
 
-    def self.validate_geohash(geohash)
+    def self.validate_geohash geohash
       unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
         raise ArgumentError, "It is not Geohash-36."
       end
     end
 
-    def self.validate_coords(coords)
+    def self.validate_coords coords
       keys = coords.keys
       raise ArgumentError, "Invalid hash" unless keys.length == 2 && keys.include?(:latitude) && keys.include?(:longitude)
       lat_inclusion = Geohash36.basic_lat_interval.include? coords[:latitude]
@@ -157,7 +158,7 @@ class Geohash36
       raise ArgumentError, "Invalid hash values" unless lat_inclusion && lon_inclusion
     end
 
-    def self.geohash_symbol!(lon_interval, lat_interval, coords)
+    def self.geohash_symbol! lon_interval, lat_interval, coords
       lon_intervals = Geohash36::Interval.convert_array(lon_interval.split, include_right: false)
       lat_intervals = Geohash36::Interval.convert_array(lat_interval.split, include_left: false)
 
@@ -172,6 +173,6 @@ class Geohash36
 
 end # of module Geohash36
 
-Dir[File.dirname(__FILE__) + '/geohash36/library/*.rb'].each {|file| require file }
+Dir[ File.dirname(__FILE__) + '/geohash36/library/*.rb' ].each { |file| require file }
 
 # vim:ts=2:tw=100:wm=100:syntax=ruby
