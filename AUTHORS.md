@@ -14,16 +14,16 @@ AUTHORS
     Associated:   Has some relevance to the project and is referable to specific parts of the project.
 
     GEOHASH36
-    P: Bjoern Rennhak
-    M: bjoern AT clothesnetwork DOT com
-    L: -
-    W: http://www.clothesnetwork.com
-    S: Creator
-
-    GEOHASH36
     P: Oleg Orlov
     M: orelcokolov AT gmail DOT com
     L: -
     W: https://github.com/OrelSokolov
+    S: Creator
+
+    GEOHASH36
+    P: Bjoern Rennhak
+    M: bjoern AT clothesnetwork DOT com
+    L: -
+    W: http://www.clothesnetwork.com
     S: Creator
 
