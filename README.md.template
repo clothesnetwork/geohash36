@@ -4,12 +4,15 @@ $Version$
 [![Gem Version](https://badge.fury.io/rb/geohash36.svg)](http://badge.fury.io/rb/geohash36)
 [|[License](http://img.shields.io/badge/license-MIT-brightgreen.svg)]
 
-Geohash36 is a complete solution for geohashing coordinates. What is geohash?
-For example, the coordinate pair 40.689167, -74.044444 (NY City) produces a slightly shorter hash 9LVB4BH89g, which can be used in the URL http://geo36.org/9LVB4BH89g
+Geohash36 is a complete solution for geohashing coordinates. What is a geohash? For example, the
+coordinate pair 40.689167, -74.044444 (NY City) produces a slightly shorter hash 9LVB4BH89g, which
+can be used in the URL http://geo36.org/9LVB4BH89g
 
 The main usages of Geohashes are
-* as a unique identifier.
-* represent point data e.g. in databases.
+
+  * as a unique identifier
+  * represent point data e.g. in databases
+
 
 ## More about geohashing
 
@@ -40,9 +43,11 @@ typefaces.
 Alphabet conversion table [2]
 
 Decimal     0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17
+
 Geohash-36  2   3   4   5   6   7   8   9   b   B   C   d   D   F   g   G   h   H
 
 Decimal     18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+
 Geohash-36  j   J   K   l   L   M   n   N   P   q   Q   r   R   t   T   V   W   X
 
 Each character represents a further subdivision in a 6 by 6 grid - starting at the North-West
@@ -52,9 +57,13 @@ The Statue of Liberty, at coordinates 40.689167, -74.044444, is encoded as 9LVB4
 decoding equates to 40.689168,-74.044445.
 
 [1] http://geohash.org/
+
 [2] http://en.wikipedia.org/wiki/Geohash
+
 [2] http://en.wikipedia.org/wiki/Geohash-36
+
 [3] http://geo36.org/
+
 [4] http://www.pubnub.com/blog/wp-content/uploads/2014/05/ProximityChat1.jpg
 
 
