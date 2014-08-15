@@ -43,9 +43,11 @@ Gem::Specification.new do |spec|
                                   COPYING.md
                                   LICENSE.md
                                   MAINTAINERS.md
+                                  FAQ.md
                                   Gemfile
                                   README.md
                                   Rakefile
+                                  .project.yaml
                                   geohash36.gemspec
                                 ]
 
@@ -79,23 +81,11 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'thor'
   spec.add_runtime_dependency 'ruby-try', '~> 1.1.1'
 
-  # Package building
-  spec.add_runtime_dependency 'fpm'
-
   # Shell
   spec.add_runtime_dependency 'ptools'
   spec.add_runtime_dependency 'os'
 
-  # Data RPCs and Messaging
-  spec.add_runtime_dependency 'msgpack'
-  # spec.add_runtime_dependency 'xmpp4r'
-  # spec.add_runtime_dependency 'xmpp4r-simple' # , :git => 'git://github.com/blaine/xmpp4r-simple.git'
-  spec.add_runtime_dependency 'amqp'
-
   spec.add_runtime_dependency 'mime-types'
-
-  # l10n
-  spec.add_runtime_dependency 'gettext'
 
   # Monadic/Functional
   spec.add_runtime_dependency 'andand'
