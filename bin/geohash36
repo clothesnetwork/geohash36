@@ -2,41 +2,44 @@
 
 # Make sure load path contains local + global
 $LOAD_PATH << '.'
-$LOAD_PATH << File.dirname(File.join(__FILE__, '../lib/') )
+$LOAD_PATH << File.dirname( File.join( __FILE__, '../lib/' ) )
 
 # System includes
 require 'bundler'
 require 'thor' unless defined? Thor::Runner
 
+# Custom includes
 require_relative '../lib/geohash36'
 
-# Class for CLI.
+
+# @class      Geohash36 executable
+# @brief      Main entry point for commandline execution
 class Default < Thor
 
-  desc "hash LATITUDE LONGITUDE", "get geohash from coordinates"
-  def hash(lat, lon)
+  desc 'hash LATITUDE LONGITUDE', 'Get geohash36 from coordinates' # {{{
+  def hash lat, lon
     begin
-      puts Geohash36.to_geohash({latitude: lat.to_f, longitude: lon.to_f})
-    rescue ArgumentError => e
-      puts "Error: #{e.message}"
+      puts Geohash36.to_geohash( { latitude: lat.to_f, longitude: lon.to_f } )
+    rescue ArgumentError => error
+      STDERR.puts "Error: #{error.message}"
     end
-  end
+  end # }}}
 
-  desc "coords GEOHASH [ACCURACY]", "get coords for geohash with specified accuracy"
+  desc 'coords GEOHASH [ACCURACY]', 'Get coordinates for geohash with specified accuracy' # {{{
   option :accuracy
-  def coords(hash, accuracy = 3)
+  def coords hash, accuracy = 3
     begin
-      raise ArgumentError, "Too big accuracy" if accuracy.to_i > 10
-      coords = Geohash36.to_coords(hash, accuracy.to_i.abs)
-      puts "latitude: #{coords[:latitude]}"
-      puts "longitude: #{coords[:longitude]}"
-    rescue ArgumentError => e
-      puts "Error: #{e.message}"
+      raise ArgumentError, 'Too big accuracy' if( accuracy.to_i > 10 )
+      coords = Geohash36.to_coords( hash, accuracy.to_i.abs )
+      puts "Latitude: #{coords[:latitude]}"
+      puts "Longitude: #{coords[:longitude]}"
+    rescue ArgumentError => error
+      STDERR.puts "Error: #{error.message}"
     end
-  end
+  end # }}}
 
 end # of class Default
 
-Default.start(ARGV)
+Default.start( ARGV )
 
 # vim:ts=2:tw=100:wm=100:syntax=ruby
