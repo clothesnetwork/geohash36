@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    geohash36 (0.1.0)
+    geohash36 (0.3.0)
       amqp
       andand
       awesome_print
