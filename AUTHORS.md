@@ -24,6 +24,6 @@ AUTHORS
     P: Bjoern Rennhak
     M: bjoern AT clothesnetwork DOT com
     L: -
-    W: http://www.clothesnetwork.com
+    W: http://github.com/rennhak
     S: Creator
 
