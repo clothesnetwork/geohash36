@@ -5,9 +5,8 @@ require 'spec_helper'
 
 
 describe Geohash36 do
+
   it { expect{Geohash36.to_geohash(Hash.new)}.to raise_error(ArgumentError) }
-
-
   it { expect{Geohash36.new 111 }.to raise_error(ArgumentError) }
   it { expect{Geohash36.new Hash.new }.to raise_error(ArgumentError) }
   it { expect{Geohash36.new "BB99999999"}.not_to raise_error }
