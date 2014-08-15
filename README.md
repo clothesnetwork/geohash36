@@ -1,5 +1,5 @@
 # Geohash36
-Version 0.1.0-39-g6343a25
+Version 0.3.0-9-g34a816a
 
 Geohash36 is a complete solution for geohashing coordinates. What is geohash?
 For example, the coordinate pair 40.689167, -74.044444 (NY City) produces a slightly shorter hash 9LVB4BH89g, which can be used in the URL http://geo36.org/9LVB4BH89g
