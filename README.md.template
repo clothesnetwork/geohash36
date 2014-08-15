@@ -1,6 +1,9 @@
 # Geohash36
 $Version$
 
+[![Gem Version](https://badge.fury.io/rb/geohash36.svg)](http://badge.fury.io/rb/geohash36)
+[|[License](http://img.shields.io/badge/license-MIT-brightgreen.svg)]
+
 Geohash36 is a complete solution for geohashing coordinates. What is geohash?
 For example, the coordinate pair 40.689167, -74.044444 (NY City) produces a slightly shorter hash 9LVB4BH89g, which can be used in the URL http://geo36.org/9LVB4BH89g
 
@@ -73,7 +76,22 @@ gem 'geohash36', git: 'https://github.com/clothesnetwork/geohash36'
 
 Basic usage can be found in demo.rb file
 
-## Copyright
 
-Please refer to the COPYRIGHT file
+## Contributing
+
+1. Fork it ( https://github.com/clothesnetwork/geohash36/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+
+
+## Authors
+
+* [Oleg Orlov](https://github.com/OrelSokolov)
+* [Bjoern Rennhak](https://github.com/rennhak)
+
+## Copyright & License
+
+Please refer to the COPYING.md and LICENSE.md file.
 
