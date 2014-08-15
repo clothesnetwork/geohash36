@@ -164,7 +164,7 @@ module Mixin
 
         # Collect all possible outputs
         %w(--help -h -help).each do |argument|
-          tempfile  = Tempfile.new( "scylla-" )
+          tempfile  = Tempfile.new( "geohash36-" )
           `#{command} #{argument} > #{tempfile.path.to_s} 2>&1`
           help      <<  File.read( tempfile.path )
         end

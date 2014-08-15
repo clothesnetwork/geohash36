@@ -15,8 +15,8 @@ module Mixin
     # @param    [Array]     args      Argument array
     def initialize *args
       super
-      unless File.exist?("~/.scylla/config.yaml")
-          abort("Could not find configuration file in ~/scylla/config.yaml. Please run 'scylla config:generate' to generate it.")
+      unless File.exist?("~/.geohash36/config.yaml")
+          abort("Could not find configuration file in ~/geohash36/config.yaml. Please run 'geohash36 config:generate' to generate it.")
       end
     end # }}}
 

@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 
 
-# @module   Scylla Module
-# @brief    Implements the Scylla module wrapper around the Scylla API
-module Scylla
+# @module   Geohash36 Module
+# @brief    Implements the Geohash36 module wrapper around the Geohash36 API
+class Geohash36
 
+  # Version of gem
   VERSION = `git describe --tags`.split("-").first || "0.1.0"
 
 end

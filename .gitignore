@@ -6,4 +6,8 @@ target
 .*~
 graph-recommendation.iml
 thrift/
-lib/scylla/man
+lib/geohash36/man
+coverage/
+pkg/
+doc/
+.yardoc

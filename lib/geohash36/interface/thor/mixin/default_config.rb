@@ -15,11 +15,11 @@ module Mixin
     include ::Mixin::ConfigChoice
 
     def defaults
-      config_path = File.expand_path( '~/.scylla/config.yml' )
+      config_path = File.expand_path( '~/.geohash36/config.yml' )
       if File.exists?(config_path)
         YAML.load_file(config_path)
       else
-        FileUtils.mkdir_p( File.expand_path( '~/.scylla' ) )
+        FileUtils.mkdir_p( File.expand_path( '~/.geohash36' ) )
         config_choice
       end
     end

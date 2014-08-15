@@ -17,12 +17,12 @@ Gem::Specification.new do |spec|
   spec.description          = %q(Commandline interface and library to the Geohash36 Algorithm)
   spec.summary              = spec.description
 
-  spec.authors              = [ 'Bjoern Rennhak' ]
-  spec.email                = [ 'bjoern@clothesnetwork.com' ]
+  spec.authors              = [ 'Bjoern Rennhak', 'Oleg Orlov' ]
+  spec.email                = [ 'bjoern@clothesnetwork.com', 'orelcokolov@gmail.com' ]
 
-  spec.homepage             = 'http://clothesnetwork.com'
+  spec.homepage             = 'http://github.com/clothesnetwork/geohash36'
 
-  spec.licenses             = %w[Closed]
+  spec.licenses             = %w[MIT]
 
   spec.date                 = DateTime.now.to_s.split( 'T' ).first
   spec.version              = Geohash36::VERSION
@@ -41,13 +41,11 @@ Gem::Specification.new do |spec|
                                   AUTHORS.md
                                   CHANGELOG.md
                                   COPYING.md
-                                  FAQ.md
                                   LICENSE.md
                                   MAINTAINERS.md
                                   Gemfile
                                   README.md
                                   Rakefile
-                                  Thorfile
                                   geohash36.gemspec
                                 ]
 
@@ -79,11 +77,7 @@ Gem::Specification.new do |spec|
 
   # General
   spec.add_runtime_dependency 'thor'
-
-  # Runtime multiplexer
-  spec.add_runtime_dependency 'foreman'
-  spec.add_runtime_dependency 'unicorn'
-  spec.add_runtime_dependency 'einhorn'
+  spec.add_runtime_dependency 'ruby-try', '~> 1.1.1'
 
   # Package building
   spec.add_runtime_dependency 'fpm'
@@ -92,58 +86,16 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'ptools'
   spec.add_runtime_dependency 'os'
 
-  # Encryption / Security
-  spec.add_runtime_dependency 'bcrypt-ruby'
-  spec.add_runtime_dependency 'scrypt'
-
-  # Database ORM (Persistent)
-  spec.add_runtime_dependency 'datamapper'
-  spec.add_runtime_dependency 'dm-core'
-  spec.add_runtime_dependency 'dm-tags'
-  spec.add_runtime_dependency 'dm-migrations'
-  spec.add_runtime_dependency 'dm-types'
-  spec.add_runtime_dependency 'dm-enum'
-  spec.add_runtime_dependency 'dm-validations'
-  spec.add_runtime_dependency 'dm-timestamps'
-  spec.add_runtime_dependency 'dm-sqlite-adapter'
-  spec.add_runtime_dependency 'dm-do-adapter'
-
-  # Database (Volatile)
-  spec.add_runtime_dependency 'redis'
-  spec.add_runtime_dependency 'hiredis'
-  spec.add_runtime_dependency 'redis-objects'
-
   # Data RPCs and Messaging
   spec.add_runtime_dependency 'msgpack'
   # spec.add_runtime_dependency 'xmpp4r'
   # spec.add_runtime_dependency 'xmpp4r-simple' # , :git => 'git://github.com/blaine/xmpp4r-simple.git'
   spec.add_runtime_dependency 'amqp'
 
-  spec.add_runtime_dependency 'faraday'
   spec.add_runtime_dependency 'mime-types'
-
-  # Data Exchange Containers/Parsing
-  spec.add_runtime_dependency 'oj'
-  spec.add_runtime_dependency 'ox'
-  spec.add_runtime_dependency 'nokogiri'
-  spec.add_runtime_dependency 'hpricot'
-  spec.add_runtime_dependency 'cobravsmongoose'
-
-  # Caching
-  spec.add_runtime_dependency 'moneta'
-
-  # Mail
-  spec.add_runtime_dependency 'pony'
 
   # l10n
   spec.add_runtime_dependency 'gettext'
-
-  # Rest interface
-  spec.add_runtime_dependency 'rack'
-
-  # Hypermedia
-  spec.add_runtime_dependency 'hyperresource'
-  spec.add_runtime_dependency 'halidator'
 
   # Monadic/Functional
   spec.add_runtime_dependency 'andand'
@@ -151,10 +103,7 @@ Gem::Specification.new do |spec|
 
   # Misc System
   spec.add_runtime_dependency 'awesome_print'
-  spec.add_runtime_dependency 'ntp'
   spec.add_runtime_dependency 'uuid'
-  spec.add_runtime_dependency 'money'
-
 
   ## System libraries needed (info for the user)
   # spec.requirements 'iconv zlib libmagic'
@@ -165,11 +114,11 @@ Gem::Specification.new do |spec|
 
   ## Post Install
   spec.post_install_message = <<-EOS
-      ____ _____ ___  _   _    _    ____  _   _ _____  __   
-     / ___| ____/ _ \| | | |  / \  / ___|| | | |___ / / /_  
-    | |  _|  _|| | | | |_| | / _ \ \___ \| |_| | |_ \| '_ \ 
+      ____ _____ ___  _   _    _    ____  _   _ _____  __
+     / ___| ____/ _ \| | | |  / \  / ___|| | | |___ / / /_
+    | |  _|  _|| | | | |_| | / _ \ \___ \| |_| | |_ \| '_ \
     | |_| | |__| |_| |  _  |/ ___ \ ___) |  _  |___) | (_) |
-     \____|_____\___/|_| |_/_/   \_\____/|_| |_|____/ \___/ 
+     \____|_____\___/|_| |_/_/   \_\____/|_| |_|____/ \___/
 
     (c) #{spec.date.to_s}, All rights reserved
     Clothes Network Ltd., Bjoern Rennhak

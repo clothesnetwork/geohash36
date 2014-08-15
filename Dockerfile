@@ -1,6 +1,6 @@
 FROM debian:latest
 
-MAINTAINER Bjoern Rennhak bjoern@greylon.com
+MAINTAINER Bjoern Rennhak bjoern@clothesnetwork.com
 
 # make sure we don't rely on locally filtered dns
 ADD build/docker/resolv.conf /etc/resolv.conf

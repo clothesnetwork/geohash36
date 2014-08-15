@@ -1,5 +1,5 @@
-geohash36(1) -- Image Data Hub
-=============================
+geohash36(1) -- Geohash Radix 36
+================================
 
 ## SYNOPSIS
 
