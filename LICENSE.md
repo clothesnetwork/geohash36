@@ -1,7 +1,7 @@
 
     These files are part of the GEOHASH36 solution.
 
-    Copyright 2014, Bjoern Rennhak
+    Copyright 2014, Bjoern Rennhak, Oleg Orlov
                     Clothes Network Ltd.
 
     This project is open source software under MIT license.
