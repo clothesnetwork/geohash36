@@ -1,8 +1,8 @@
 # Geohash36
-Version 0.3.1
+Version 0.3.1-1-g547d3ec
 
 [![Gem Version](https://badge.fury.io/rb/geohash36.svg)](http://badge.fury.io/rb/geohash36)
-[|[License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://img.shields.io/badge/license-MIT-brightgreen.svg)
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)]
 
 Geohash36 is a complete solution for geohashing coordinates. What is a geohash? For example, the
 coordinate pair 40.689167, -74.044444 (NY City) produces a slightly shorter hash 9LVB4BH89g, which
