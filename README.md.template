@@ -83,8 +83,42 @@ gem 'geohash36', git: 'https://github.com/clothesnetwork/geohash36'
 
 ## Usage
 
-Basic usage can be found in demo.rb file
+As library
 
+
+```ruby
+2.1.2 :001 > require 'geohash36'
+ => true
+2.1.2 :002 > coordinates = { latitude: 40.689167, longitude: -74.044444 }
+ => {:latitude=>40.689167, :longitude=>-74.044444}
+2.1.2 :004 > hash = Geohash36.to_geohash( coordinates )
+ => "9LVB4BH89g" 
+2.1.2 :005 > resolved = Geohash36.to_coords( hash )
+ => {:latitude=>40.689168, :longitude=>-74.044445}
+```
+
+or from the command line
+
+```sh
+~# geohash36 
+
+Commands:
+  geohash36 coords GEOHASH [ACCURACY]  # Get coordinates for geohash with specified accuracy
+  geohash36 hash LATITUDE LONGITUDE    # Get geohash36 from coordinates
+  geohash36 help [COMMAND]             # Describe available commands or one specific command
+```
+
+```sh
+~# geohash36 hash 40.689167 -74.044445
+
+9LVB4BH89g
+```
+```sh
+~# geohash36 coords 9LVB4BH89g
+
+Latitude: 40.689
+Longitude: -74.044
+```
 
 ## Contributing
 
