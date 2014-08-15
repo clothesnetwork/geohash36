@@ -5,10 +5,14 @@ require 'spec_helper'
 
 
 describe Geohash36 do
+  it { expect{Geohash36.to_geohash(Hash.new)}.to raise_error(ArgumentError) }
+
 
   it { expect{Geohash36.new 111 }.to raise_error(ArgumentError) }
+  it { expect{Geohash36.new Hash.new }.to raise_error(ArgumentError) }
   it { expect{Geohash36.new "BB99999999"}.not_to raise_error }
   it { expect{Geohash36.new latitude: 1, longitude: 2}.not_to raise_error }
+
 
   context "when default args" do
     context "coordinates" do
@@ -44,6 +48,6 @@ describe Geohash36 do
       it { expect{subject.hash = ""}.to raise_error(ArgumentError) }
     end # of context
   end # of context
-end # of describe 
+end # of describe
 
 # vim:ts=2:tw=100:wm=100:syntax=ruby

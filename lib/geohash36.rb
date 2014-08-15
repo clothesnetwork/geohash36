@@ -137,11 +137,11 @@ class Geohash36
     end
 
     def self.validate_coords(coords)
+      keys = coords.keys
+      raise ArgumentError, "Invalid hash" unless keys.length == 2 && keys.include?(:latitude) && keys.include?(:longitude)
       lat_inclusion = Geohash36.basic_lat_interval.include? coords[:latitude]
       lon_inclusion = Geohash36.basic_lon_interval.include? coords[:longitude]
-      unless lat_inclusion && lon_inclusion
-        raise ArgumentError, "It is not valid coordinates"
-      end
+      raise ArgumentError, "Invalid hash values" unless lat_inclusion && lon_inclusion
     end
 
     def self.geohash_symbol!(lon_interval, lat_interval, coords)
