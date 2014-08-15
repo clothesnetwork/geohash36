@@ -46,7 +46,6 @@ Gem::Specification.new do |spec|
                                   Gemfile
                                   README.md
                                   Rakefile
-                                  Thorfile
                                   geohash36.gemspec
                                 ]
 

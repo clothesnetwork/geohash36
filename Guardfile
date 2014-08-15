@@ -36,6 +36,7 @@ end
 guard 'rake', :task => 'docs:generate' do
   watch(%r{^lib/geohash36/(.+)\.rb$})
   watch('lib/geohash36.rb')
+  watch('README.md.template')
 end
 
 ### Simple Helpers
