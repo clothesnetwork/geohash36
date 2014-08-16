@@ -65,6 +65,9 @@ group :test do # {{{
   # Fixture helper
   gem 'randexp'
 
+  # Spice up testing
+  gem 'nyan-cat-formatter'
+
 end # }}}
 
 group :security do # {{{

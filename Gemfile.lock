@@ -164,6 +164,8 @@ GEM
     multi_test (0.1.1)
     mustache (0.99.6)
     netrc (0.7.7)
+    nyan-cat-formatter (0.10.0)
+      rspec (>= 2.99, >= 2.14.2, < 4)
     os (0.9.6)
     parallel (1.2.2)
     polyglot (0.3.5)
@@ -315,6 +317,7 @@ DEPENDENCIES
   guard-shell
   htmlentities
   metric_fu (>= 4.5.x)
+  nyan-cat-formatter
   pry
   pry-debugger
   pry-stack_explorer
