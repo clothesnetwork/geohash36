@@ -1,0 +1,4 @@
+--color
+--format NyanCatWideFormatter
+--fail-fast
+--order random

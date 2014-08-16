@@ -1,20 +1,12 @@
 PATH
   remote: .
   specs:
-    geohash36 (0.3.0)
-      amqp
+    geohash36 (0.3.1)
       andand
-      awesome_print
-      fpm
-      gettext
-      ick
-      mime-types
-      msgpack
       os
       ptools
       ruby-try (~> 1.1.1)
       thor
-      uuid
 
 GEM
   remote: https://rubygems.org/
@@ -46,28 +38,20 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    amq-protocol (1.9.2)
-    amqp (1.5.0)
-      amq-protocol (>= 1.9.2)
-      eventmachine
     andand (1.3.3)
     arel (5.0.1.20140414130214)
-    arr-pm (0.0.9)
-      cabin (> 0)
     arrayfields (4.9.2)
     aruba (0.6.0)
       childprocess (>= 0.3.6)
       cucumber (>= 1.1.1)
       rspec-expectations (>= 2.7.0)
     awesome_print (1.2.0)
-    backports (3.6.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     bundler-audit (0.3.1)
       bundler (~> 1.2)
       thor (~> 0.18)
-    cabin (0.6.1)
     cane (2.6.2)
       parallel
     celluloid (0.15.2)
@@ -83,7 +67,6 @@ GEM
       rest-client (>= 1.6.0)
       ruby_parser (~> 3.0)
       sexp_processor (~> 4.1)
-    clamp (0.6.3)
     code_analyzer (0.4.5)
       sexp_processor
     code_metrics (0.1.3)
@@ -106,7 +89,6 @@ GEM
     diff-lcs (1.2.5)
     docile (1.1.5)
     erubis (2.7.0)
-    eventmachine (1.0.3)
     fattr (2.2.2)
     ffi (1.9.3)
     flay (2.5.0)
@@ -116,17 +98,6 @@ GEM
       ruby_parser (~> 3.1, > 3.1.0)
       sexp_processor (~> 4.4)
     formatador (0.2.5)
-    fpm (1.2.0)
-      arr-pm (~> 0.0.9)
-      backports (>= 2.6.2)
-      cabin (>= 0.6.0)
-      childprocess
-      clamp (~> 0.6)
-      ffi
-      json (>= 1.7.7)
-    gettext (3.1.3)
-      locale (>= 2.0.5)
-      text
     gherkin (2.12.2)
       multi_json (~> 1.3)
     github-markup (1.2.1)
@@ -151,8 +122,6 @@ GEM
     hpricot (0.8.6)
     htmlentities (4.3.2)
     i18n (0.6.11)
-    ick (0.3.0)
-      ruby2ruby (>= 1.1.8)
     json (1.8.1)
     json_pure (1.8.1)
     launchy (2.4.2)
@@ -161,7 +130,6 @@ GEM
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    locale (2.1.0)
     lumberjack (1.0.9)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
@@ -192,11 +160,12 @@ GEM
     metric_fu-Saikuro (1.1.3)
     mime-types (1.25.1)
     minitest (5.4.0)
-    msgpack (0.5.8)
     multi_json (1.10.1)
     multi_test (0.1.1)
     mustache (0.99.6)
     netrc (0.7.7)
+    nyan-cat-formatter (0.10.0)
+      rspec (>= 2.99, >= 2.14.2, < 4)
     os (0.9.6)
     parallel (1.2.2)
     polyglot (0.3.5)
@@ -271,17 +240,17 @@ GEM
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
       rspec-mocks (~> 3.0.0)
-    rspec-core (3.0.3)
+    rspec-core (3.0.4)
       rspec-support (~> 3.0.0)
-    rspec-expectations (3.0.3)
+    rspec-expectations (3.0.4)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.0.0)
     rspec-its (1.0.1)
       rspec-core (>= 2.99.0.beta1)
       rspec-expectations (>= 2.99.0.beta1)
-    rspec-mocks (3.0.3)
+    rspec-mocks (3.0.4)
       rspec-support (~> 3.0.0)
-    rspec-support (3.0.3)
+    rspec-support (3.0.4)
     ruby-growl (4.1)
       uuid (~> 2.3, >= 2.3.5)
     ruby-progressbar (1.5.1)
@@ -292,7 +261,7 @@ GEM
     ruby_parser (3.6.2)
       sexp_processor (~> 4.1)
     secure_yaml (2.0.1)
-    sexp_processor (4.4.3)
+    sexp_processor (4.4.4)
     simplecov (0.9.0)
       docile (~> 1.1.0)
       multi_json
@@ -313,58 +282,12 @@ GEM
       sprockets (~> 2.8)
     stackprof (0.2.7)
     systemu (2.6.4)
-    text (1.3.0)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
     timers (1.1.0)
     treetop (1.4.15)
       polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
-      polyglot (>= 0.3.1)
       polyglot (>= 0.3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -394,6 +317,7 @@ DEPENDENCIES
   guard-shell
   htmlentities
   metric_fu (>= 4.5.x)
+  nyan-cat-formatter
   pry
   pry-debugger
   pry-stack_explorer
