@@ -10,7 +10,7 @@ begin
 
   desc "RSpec Core Tasks" # {{{
   RSpec::Core::RakeTask.new(:spec) do |t|
-    t.rspec_opts = '--format NyanCatFormatter --color --fail-fast --order random'
+    t.rspec_opts = '--format NyanCatWideFormatter --color --fail-fast --order random'
   end # }}}
 
 rescue LoadError
