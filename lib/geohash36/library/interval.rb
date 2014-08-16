@@ -98,57 +98,73 @@ class Geohash36::Interval < Array
     (first + last)/2.0
   end # }}}
 
-  # @return third part of interval (only positive values)
-  # @example
-  #   Geohash36::Interval.new([-2, 4]).third
-  #   # => 2.0
+  # @fn       def third {{{
+  # @brief    Computes third part of given interval and returns absolute result
+  #
+  # @return   [Numeric]     Third part of interval (absolute, returns only positive values)
+  #
+  # @example  Geohash36::Interval.new([-2, 4]).third
+  #             => 2.0
+  #
   def third
     ((last - first)/3.0).abs
-  end
+  end # }}}
 
-  # Split interval into 2 parts
-  # @return array of 2 intervals
+  # @fn       def split2 {{{
+  # @brief    Split interval into 2 parts
+  #
+  # @return   [Array]       Array of 2 intervals
   def split2
     [[first, middle], [middle, last]].map{|interval| Geohash36::Interval.new interval}
-  end
+  end # }}}
 
-  # Split interval into 3 parts
-  # @return array of 3 intervals
+  # @fn       def split3 {{{
+  # @brief    Split interval into 3 parts
+  #
+  # @return   [Array]     Returns array of 3 intervals
   def split3
     result = [[self.first, self.first+third], [self.first+third, self.first+2*third], [self.first+2*third, self.last]]
     result.map{|array| Geohash36::Interval.new array}
-  end
+  end # }}}
 
-  # Convert array of arrays to array of `Geohash36::Interval`s
+  # @fn       def self.convert_array array, options = {} {{{
+  # @brief    Convert array of arrays to array of `Geohash36::Interval`s
   #
-  # @param array [Array] array to convert
-  # @param options [Hash] options for `Geohash36::Interval` object
-  #   but it works a little different. It is not affect first\last elements in array.
-  #   For example, if we do not want to include left border, only first element
-  #   will include left border because this class designed to handle geographical coordinates.
-  #   It is not designed for abstract intervals.
-  # @example
-  #   # for example, we don't want to include left border of interval,
-  #   # so we will have array like `[[0, 0], [0, 0], [0, 0]] ->> [[0, 0], (0, 0], (0, 0]]`
+  # @param    [Array]     array       Array to convert
+  # @param    [Hash]      options     Options for `Geohash36::Interval` object
   #
-  #   my_array = [[0, 2], [2, 6], [6, 10]]
-  #   Geohash36.convert_array(my_array, include_left: false)
-  #   # => [[0, 2], (2, 6], (6, 10]]
+  # @info     It works a little different. It is not affect first\last elements in array.
+  #           For example, if we do not want to include left border, only first element
+  #           will include left border because this class designed to handle geographical coordinates.
+  #           It is not designed for abstract intervals.
+  #
+  # @example  e.g. We don't want to include left border of interval,
+  #           so we will have array like `[[0, 0], [0, 0], [0, 0]] ->> [[0, 0], (0, 0], (0, 0]]`
+  #
+  #           my_array = [[0, 2], [2, 6], [6, 10]]
+  #           Geohash36.convert_array(my_array, include_left: false)
+  #             => [[0, 2], (2, 6], (6, 10]]
+  #
   def self.convert_array array, options = {}
     intervals = array.map{|interval| Geohash36::Interval.new interval, options }
     intervals.first.configure(include_left: true) unless options[:include_left]
     intervals.last.configure(include_right: true) unless options[:include_right]
     intervals
-  end
+  end # }}}
+
 
   private
 
-  # Check if array has valid values
-  def validate_array(array)
+  # @fn       def validate_array array # {{{
+  # @brief    Check if array has valid values
+  #
+  # @param    [Array]     array     FIXME
+  def validate_array array
     unless array.length == 2 && ( array.try(:first) <= array.try(:last) )
       raise ArgumentError, "Not valid array for geohash interval"
     end
-  end
+  end # }}}
+
 
 end # of class Geohash36::Interval
 
