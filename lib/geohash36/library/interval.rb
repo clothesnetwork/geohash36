@@ -35,52 +35,68 @@ class Geohash36::Interval < Array
     @opts.merge! options
   end # of def configure }}}
 
-  # Check if `number` between left and right border.
+  # @fn       def include? number {{{
+  # @brief    Check if `number` between left and right border
   #
-  # @param number [Float, Fixmum] number to check
+  # @param    [Numeric]     number      Number to check
   def include? number
     for_left_border  = (@opts[:include_left] == true)  ? first  <= number : first < number
     for_right_number = (@opts[:include_right] == true) ? number <= last  : number < last
     for_left_border && for_right_number
-  end
+  end # }}}
 
-  # Split interval into 6 parts
-  # @return array of 6 intervals
+  # @fn       def split {{{
+  # @brief    Split interval into 6 parts
+  #
+  # @return   [Array]     Array of 6 intervals
   def split
     split3.each_with_object([]){|interval, result| result.concat interval.split2}
-  end
+  end # }}}
 
-  # Change values of interval
-  # @example
-  #   my_interval = Geohash36::Interval.new([0, 1])
-  #   my_interval.update [0,6]
-  #   my_interval # => [0, 6]
+  # @fn       def update array {{{
+  # @brief    Change values of interval
+  #
+  # @param    [Array]     array     FIXME
+  #
+  # @example  my_interval = Geohash36::Interval.new([0, 1])
+  #           my_interval.update [0,6]
+  #           my_interval # => [0, 6]
   def update array
     array.try(:compact!)
     validate_array(array)
     self.clear
     array.each{|element| self.push element}
-  end
+  end # }}}
 
-  # @return string representation of object
+  # @fn       def inspect {{{
+  # @brief    Returns string for easy inspection of self on print
+  #
+  # @return   [String]      String representation of object
   def inspect
     left_br  = @opts[:include_left]  ? "[" : "("
     right_br = @opts[:include_right] ? "]" : ")"
-    "#{left_br}#{first}, #{last}#{right_br}"
-  end
 
-  # @return string representation of object
+    "#{left_br}#{first}, #{last}#{right_br}"
+  end # }}}
+
+  # @fn       def to_s {{{
+  # @brief    Returns string representation of self for print
+  #
+  # @return   [String]    String representation of object
   def to_s
     inspect
-  end
+  end # }}}
 
-  # @return middle of the interval
-  # @example
-  #   Geohash36::Interval.new([0, 6]).middle
-  #   # => 3.0
+  # @fn       def middle {{{
+  # @brief    Average of given interval (middle)
+  #
+  # @return   [Numeric]     Returns average of the given interval
+  #
+  # @example  Geohash36::Interval.new([0, 6]).middle
+  #             => 3.0
   def middle
     (first + last)/2.0
-  end
+  end # }}}
 
   # @return third part of interval (only positive values)
   # @example
@@ -126,12 +142,13 @@ class Geohash36::Interval < Array
   end
 
   private
-    # Check if array has valid values
-    def validate_array(array)
-      unless array.length == 2 && ( array.try(:first) <= array.try(:last) )
-        raise ArgumentError, "Not valid array for geohash interval"
-      end
+
+  # Check if array has valid values
+  def validate_array(array)
+    unless array.length == 2 && ( array.try(:first) <= array.try(:last) )
+      raise ArgumentError, "Not valid array for geohash interval"
     end
+  end
 
 end # of class Geohash36::Interval
 
