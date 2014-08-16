@@ -79,38 +79,43 @@ class Geohash36
     @coords.merge! coords
   end # }}}
 
-
-  # Convert coordinates pair to geohash without creating an object
+  # @fn       def self.to_geohash coords {{{
+  # @brief    Convert coordinates pair to geohash without creating an object
   #
-  # @param coords [Hash] coordinates to convert
-  # @return [String] geohash
-  # @example
-  #   Geohash36.to_geohash(latitude: 0, longitude: 0)
-  #   # => "l222222222"
-  def self.to_geohash(coords)
+  # @param    [Hash]    coords      Coordinates to convert
+  #
+  # @return   [String]  Returns a geohash from given coordinates
+  #
+  # @example  Geohash36.to_geohash(latitude: 0, longitude: 0)
+  #           # => "l222222222"
+  def self.to_geohash coords
     Geohash36.validate_coords(coords)
     lon_interval = Geohash36.basic_lon_interval
     lat_interval = Geohash36.basic_lat_interval
 
     (0...GEOCODE_LENGTH).map{Geohash36.geohash_symbol!(lon_interval, lat_interval, coords)}.join
-  end
+  end # }}}
 
-  # Convert geohash to coords without creating an object.
+  # @fn       def self.to_coords(geohash, accuracy = DEFAULT_ACCURACY) {{{
+  # @brief    Convert geohash to coords without creating an object.
   #
-  # @param [String] geohash
-  # @param accuracy [Fuxnum] accuracy for coordinates values
-  # @return [Hash] coordinates
-  # @example With default accuracy
-  #   Geohash36.to_coords("l222222222")
-  #   # => {:latitude=>-1.0e-06, :longitude=>3.0e-06}
-  # @example With accuracy 3
-  #   Geohash36.to_coords("l222222222", 3)
-  #   # => {:latitude=>0.0, :longitude=>0.0}
-  def self.to_coords(geohash, accuracy = DEFAULT_ACCURACY)
+  # @param    [String]      geohash       Given geohash string
+  # @param    [Fixnum]      accuracy      Accuracy for coordinates values
+  #
+  # @return   [Hash]        Returns coordinates from given hash
+  #
+  # @example  With default accuracy
+  #           Geohash36.to_coords("l222222222")
+  #             => {:latitude=>-1.0e-06, :longitude=>3.0e-06}
+  # @example  With accuracy 3
+  #           Geohash36.to_coords("l222222222", 3)
+  #             => {:latitude=>0.0, :longitude=>0.0}
+  #
+  def self.to_coords geohash, accuracy = DEFAULT_ACCURACY
     Geohash36.validate_geohash(geohash)
 
-    lon_interval = Geohash36.basic_lon_interval
-    lat_interval = Geohash36.basic_lat_interval
+    lon_interval    = Geohash36.basic_lon_interval
+    lat_interval    = Geohash36.basic_lat_interval
 
     geohash.each_char do |c|
       lon_intervals = Geohash36::Interval.convert_array(lon_interval.split)
@@ -119,7 +124,7 @@ class Geohash36
       lat_index, lon_index = 0, 0
 
       GEOCODE_MATRIX.each_with_index do |row, row_index|
-        if row.include? c
+        if row.include?( c )
           lat_index = GEOMATRIX_MAX_INDEX-row_index
           lon_index = row.index(c)
           break
@@ -132,7 +137,8 @@ class Geohash36
 
     { latitude:  lat_interval.middle.round(accuracy) ,
       longitude: lon_interval.middle.round(accuracy) }
-  end
+  end # }}}
+
 
   private
 
