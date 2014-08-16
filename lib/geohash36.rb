@@ -30,8 +30,7 @@ class Geohash36
   # Accuracy for coordinates when converting from geohash
   DEFAULT_ACCURACY    = 6
 
-  attr_reader :coords
-  attr_reader :hash
+  attr_reader   :coords, :hash
   attr_accessor :accuracy
 
   # @fn       def initialize obj = { latitude: 0, longitude: 0 } {{{
@@ -142,40 +141,48 @@ class Geohash36
 
   private
 
-    def self.basic_lon_interval
-      Geohash36::Interval.new [-180, 180]
+  # @fn       def self.basic_lon_interval {{{
+  # @brief    Returns basic Longitude interval allowed
+  #
+  # @return   [Interval]      Returns correctly initialized Interval class for Longitude
+  def self.basic_lon_interval
+    Geohash36::Interval.new [-180, 180]
+  end # }}}
+
+  # @fn       def self.basic_lat_interval {{{
+  # @brief    Returns basic Latitude interval allowed
+  #
+  # @return   [Interval]      Returns correctly initialized Interval class for Latitude
+  def self.basic_lat_interval
+    Geohash36::Interval.new [-90, 90]
+  end # }}}
+
+  def self.validate_geohash geohash
+    unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
+      raise ArgumentError, "Sorry, it doesn't seem to be Geohash-36"
     end
+  end
 
-    def self.basic_lat_interval
-      Geohash36::Interval.new [-90, 90]
-    end
+  def self.validate_coords coords
+    keys = coords.keys
+    raise ArgumentError, "Invalid hash" unless keys.length == 2 && keys.include?(:latitude) && keys.include?(:longitude)
+    lat_inclusion = Geohash36.basic_lat_interval.include? coords[:latitude]
+    lon_inclusion = Geohash36.basic_lon_interval.include? coords[:longitude]
+    raise ArgumentError, "Invalid hash values" unless lat_inclusion && lon_inclusion
+  end
 
-    def self.validate_geohash geohash
-      unless geohash =~ /\A[23456789bBCdDFgGhHjJKlLMnNPqQrRtTVWX]+{1,10}\z/
-        raise ArgumentError, "It is not Geohash-36."
-      end
-    end
+  def self.geohash_symbol! lon_interval, lat_interval, coords
+    lon_intervals = Geohash36::Interval.convert_array(lon_interval.split, include_right: false)
+    lat_intervals = Geohash36::Interval.convert_array(lat_interval.split, include_left: false)
 
-    def self.validate_coords coords
-      keys = coords.keys
-      raise ArgumentError, "Invalid hash" unless keys.length == 2 && keys.include?(:latitude) && keys.include?(:longitude)
-      lat_inclusion = Geohash36.basic_lat_interval.include? coords[:latitude]
-      lon_inclusion = Geohash36.basic_lon_interval.include? coords[:longitude]
-      raise ArgumentError, "Invalid hash values" unless lat_inclusion && lon_inclusion
-    end
+    lon_index = lon_intervals.index {|interval| interval.include? coords[:longitude] }
+    lat_index = lat_intervals.index {|interval| interval.include? coords[:latitude]  }
 
-    def self.geohash_symbol! lon_interval, lat_interval, coords
-      lon_intervals = Geohash36::Interval.convert_array(lon_interval.split, include_right: false)
-      lat_intervals = Geohash36::Interval.convert_array(lat_interval.split, include_left: false)
+    lon_interval.update lon_intervals[lon_index]
+    lat_interval.update lat_intervals[lat_index]
 
-      lon_index = lon_intervals.index {|interval| interval.include? coords[:longitude] }
-      lat_index = lat_intervals.index {|interval| interval.include? coords[:latitude]  }
-
-      lon_interval.update lon_intervals[lon_index]
-      lat_interval.update lat_intervals[lat_index]
-
-      GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-lat_index][lon_index]
-    end
+    GEOCODE_MATRIX[GEOMATRIX_MAX_INDEX-lat_index][lon_index]
+  end
 
 end # of module Geohash36
 
