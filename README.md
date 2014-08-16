@@ -1,5 +1,5 @@
 # Geohash36
-Version 0.3.1-2-gb7a658a
+Version 0.3.1-18-g41749f0
 
 [![Gem Version](https://badge.fury.io/rb/geohash36.svg)](http://badge.fury.io/rb/geohash36)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://img.shields.io/badge/license-MIT-brightgreen.svg)
