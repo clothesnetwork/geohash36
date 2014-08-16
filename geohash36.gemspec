@@ -85,15 +85,13 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'ptools'
   spec.add_runtime_dependency 'os'
 
-  spec.add_runtime_dependency 'mime-types'
-
   # Monadic/Functional
   spec.add_runtime_dependency 'andand'
-  spec.add_runtime_dependency 'ick'
+  # spec.add_runtime_dependency 'ick'
 
   # Misc System
-  spec.add_runtime_dependency 'awesome_print'
-  spec.add_runtime_dependency 'uuid'
+  # spec.add_runtime_dependency 'awesome_print'
+  # spec.add_runtime_dependency 'uuid'
 
   ## System libraries needed (info for the user)
   # spec.requirements 'iconv zlib libmagic'

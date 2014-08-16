@@ -3,7 +3,6 @@
 
 # System includes
 require 'ostruct'
-require 'awesome_print'
 require 'andand'
 require 'tempfile'
 require 'os'
